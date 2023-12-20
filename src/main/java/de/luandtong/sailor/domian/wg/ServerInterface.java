@@ -29,3 +29,4 @@ public class ServerInterface implements WGInterface {
                 "PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o " + this.ethPort + " -j MASQUERADE" + "\n";
     }
 }
+.
