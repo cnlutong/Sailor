@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sailor</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<header>
+    <h1>Sailor</h1>
+</header>
+<main>
+    <section class="intro">
+        <h2>软件介绍</h2>
+        <p>这里是关于 Sailor 软件的介绍，可以包含软件的主要功能、特点等。</p>
+    </section>
+    <section class="rules">
+        <h2>用户守则</h2>
+        <p>这里列出用户在使用 Sailor 时需要遵守的规则和指导原则。</p>
+    </section>
+    <section class="rules">
+        <h2>用户守则</h2>
+        <p>这里列出用户在使用过程中需要遵守的规则和指导原则。</p>
+    </section>
+    <form th:action="@{/sign-in}" method="get">
+        <div class="button-container">
+            <button type="submit" class="next-button">同意协议并继续</button>
+        </div>
+    </form>
+</main>
+<footer>
+    <p>&copy; 2023 Sailor. All rights reserved.</p>
+</footer>
+</body>
+</html>

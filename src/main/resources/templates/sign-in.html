@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sailor - 注册</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/> <!-- 使用相同的CSS文件 -->
+</head>
+<body>
+<header>
+    <h1>Sailor</h1>
+</header>
+<main>
+    <section class="intro">
+        <h2>注册</h2>
+        <p>请输入您的密码以创建新账户。</p>
+    </section>
+<!--    <form th:action="@{/sign-in}" method="post">-->
+<!--        <div class="form-group">-->
+<!--            <label for="password">密码:</label>-->
+<!--            <input type="password" id="password" name="password" required>-->
+<!--        </div>-->
+<!--        <div class="button-container">-->
+<!--            <button type="submit" class="next-button">注册</button>-->
+<!--        </div>-->
+<!--    </form>-->
+    <form th:action="@{/sign-in}" method="post">
+        <div class="form-group">
+            <label for="username">用户名:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">注册</button>
+    </form>
+</main>
+<footer>
+    <p>&copy; 2023 Sailor. All rights reserved.</p>
+</footer>
+</body>
+</html>

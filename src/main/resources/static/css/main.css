@@ -1,0 +1,123 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* 浅灰色背景 */
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    overflow: hidden;
+    background-color: #fff; /* 白色内容区域背景 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 轻微阴影效果 */
+}
+
+header {
+    background: #006AB3; /* 指定的蓝色 */
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2em;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.intro, .rules {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #006AB3; /* 指定的蓝色 */
+}
+
+footer {
+    background: #006AB3; /* 指定的蓝色 */
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.form-group {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.next-button {
+    background-color: #006AB3;
+    color: white;
+    border: none;
+    padding: 10px 15px; /* 调整按钮的内边距 */
+    font-size: 1em; /* 调整按钮的字体大小 */
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.next-button:hover {
+    background-color: #005092;
+}
+
+.logo-container img {
+    max-width: 600px; /* 最大宽度 */
+    height: auto; /* 高度自动调整以保持图片比例 */
+    display: block; /* 显示为块级元素 */
+    margin: 0 auto; /* 在容器中居中 */
+    padding: 10px 0; /* 在图片的上下添加一些内边距 */
+}
+
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.alert {
+    width: 60%; /* 统一输入框和错误消息的宽度 */
+    margin: 20px auto; /* 居中显示 */
+    padding: 10px; /* 增加内边距 */
+    font-size: 1.2em; /* 增加字体大小 */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.alert {
+    color: #D8000C; /* 错误消息的文字颜色 */
+    background-color: #FFD2D2; /* 错误消息的背景颜色 */
+    border-color: #D8000C; /* 错误消息边框颜色 */
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+/* 其他样式保持不变... */
