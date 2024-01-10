@@ -30,6 +30,7 @@ public class ServerService {
 
     public List<String> generateServerKey(String name) throws IOException, InterruptedException {
         return server.generateKey(true, name);
+
     }
 
 //    public List<String> generateClientKey(String name) throws IOException, InterruptedException {

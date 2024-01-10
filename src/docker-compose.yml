@@ -1,6 +1,7 @@
 version: "3"
 services:
   database:
+    container_name: sailor_mariadb
     image: mariadb:latest
     ports:
       - "3306:3306"
