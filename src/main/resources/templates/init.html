@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sailor - 初始化</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<header>
+    <h1>Sailor</h1>
+</header>
+<main>
+    <section class="intro">
+        <h2>初始化配置</h2>
+        <p>请提供以下信息以初始化软件。</p>
+    </section>
+    <form th:action="@{/init}" method="post">
+        <h3>基本信息</h3>
+        <div class="form-group">
+            <label for="serverName">ServerName:</label>
+            <input type="text" id="serverName" name="serverName" required>
+        </div>
+        <div class="form-group">
+            <label for="serverInterfaceName">ServerInterfaceName:</label>
+            <input type="text" id="serverInterfaceName" name="serverInterfaceName" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" placeholder="10.0.0.1">
+        </div>
+        <div class="form-group">
+            <label for="listenPort">ListenPort:</label>
+            <input type="text" id="listenPort" name="listenPort" placeholder="51820">
+        </div>
+
+        <h3>高级信息</h3>
+        <div class="form-group">
+            <label for="ethPort">EthPort:</label>
+            <input type="text" id="ethPort" name="ethPort" placeholder="">
+        </div>
+        <div class="button-container">
+            <button type="submit" class="next-button">提交</button>
+        </div>
+    </form>
+</main>
+<footer>
+    <p>&copy; 2023 Sailor. All rights reserved.</p>
+</footer>
+</body>
+</html>

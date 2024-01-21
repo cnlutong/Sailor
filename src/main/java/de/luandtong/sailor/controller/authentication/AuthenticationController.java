@@ -1,4 +1,4 @@
-package de.luandtong.sailor.controller.main;
+package de.luandtong.sailor.controller.authentication;
 
 import de.luandtong.sailor.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
-public class MainController {
+public class AuthenticationController {
 
     @Autowired
     private UserService userService;
@@ -42,11 +42,6 @@ public class MainController {
     @GetMapping("/log-in")
     public String logIn() {
         return "log-in"; // 登录页面
-    }
-
-    @GetMapping("/test")
-    public String getTest() {
-        return "test";
     }
 
 

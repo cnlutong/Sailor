@@ -11,9 +11,13 @@ package de.luandtong.sailor.domian.wg;
 //PublicKey = JYW3KLFxox4L3LoT2HnMnv7Elyttt9DDk76YufOaRkQ=
 //AllowedIPs = 10.10.0.3/24
 
+import java.util.UUID;
+
 public class ServerInterface implements WGInterface {
 
-    private WGInterfaceKey wgInterfaceKey;
+    private UUID uuid;
+
+    private InterfaceKey interfaceKey;
     private String address;
     private String listenPort;
     private String ethPort;
@@ -24,8 +28,16 @@ public class ServerInterface implements WGInterface {
         return "[Interface]\n" +
                 "Address = " + this.address + "\n" +
                 "ListenPort = " + this.listenPort + "\n" +
-                "PrivateKey = " + this.wgInterfaceKey.privateLey() + "\n" +
+                "PrivateKey = " + this.interfaceKey.privateLey() + "\n" +
                 "PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o " + this.ethPort + " -j MASQUERADE" + "\n" +
                 "PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o " + this.ethPort + " -j MASQUERADE" + "\n";
+    }
+
+    public ServerInterface(UUID uuid, InterfaceKey interfaceKey, String address, String listenPort, String ethPort) {
+        this.uuid = uuid;
+        this.interfaceKey = interfaceKey;
+        this.address = address;
+        this.listenPort = listenPort;
+        this.ethPort = ethPort;
     }
 }

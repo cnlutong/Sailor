@@ -16,12 +16,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/sign-in","/log-in", "/css/**", "/photo/**").permitAll()  // 允许不需要认证的路径
+                        .requestMatchers("/", "/sign-in", "/log-in", "/css/**", "/photo/**").permitAll()  // 允许不需要认证的路径
                         .anyRequest().authenticated()  // 其他所有请求需要认证
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/log-in")  // 自定义登录页面
-                        .defaultSuccessUrl("/test", true)  // 登录成功后的重定向
+                        .defaultSuccessUrl("/home", true)  // 登录成功后的重定向
                         .permitAll()
                 )
                 .logout(logout -> logout

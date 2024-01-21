@@ -7,7 +7,7 @@ import java.util.UUID;
 public interface UserRepository {
     void saveUser(UUID uuid, String username, String encode);
 
-    User findByUsername(String username);
+    User getUserByUsername(String username);
 
     boolean hasUsers();
 

@@ -12,6 +12,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private UserDBRepository userDBRepository;
+
     @Override
     public boolean hasUsers() {
         System.out.println(userDBRepository.count());
@@ -24,7 +25,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public User getUserByUsername(String username) {
         return userDBRepository.findUserDTOByUsername(username).toUser();
     }
 }
