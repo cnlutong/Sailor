@@ -3,6 +3,6 @@
 #    ROOT: DEBUG
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/sailor
+    url: jdbc:mariadb://10.0.0.30:3306/sailor
     username: root
     password: rgbwQLj9nfPYaHVZKaFF

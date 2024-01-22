@@ -24,6 +24,7 @@ public class Server {
         if (!this.serverNeedsInitialization) {
             return;
         }
+        System.out.println("Server Initing");
 
         createConfigFileStoragePath();
 

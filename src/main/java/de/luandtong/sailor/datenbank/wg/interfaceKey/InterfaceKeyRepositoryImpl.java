@@ -2,13 +2,14 @@ package de.luandtong.sailor.datenbank.wg.interfaceKey;
 
 import de.luandtong.sailor.domian.wg.InterfaceKey;
 import de.luandtong.sailor.repository.wg.InterfaceKeyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
 public class InterfaceKeyRepositoryImpl implements InterfaceKeyRepository {
-
+    @Autowired
     private InterfaceKeyDBRepository interfaceKeyDBRepository;
 
     @Override

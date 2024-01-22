@@ -48,7 +48,7 @@ public class MainFunctionController {
         System.out.println("Listen Port: " + listenPort);
         System.out.println("Eth Port: " + (ethPort != null ? ethPort : "未提供"));
 //        服务器初始化
-//        serverService.initializeServer();
+        serverService.initializeServer();
         serverService.creativeServerInterface(serverName, serverInterfaceName, address, listenPort, ethPort);
         // 配置保存后，重定向到另一个页面或返回信息
         return "redirect:/select"; // 修改为您的目标页面
