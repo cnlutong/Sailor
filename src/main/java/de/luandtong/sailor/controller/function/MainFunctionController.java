@@ -1,5 +1,6 @@
 package de.luandtong.sailor.controller.function;
 
+import de.luandtong.sailor.service.server.ClientInterfaceService;
 import de.luandtong.sailor.service.server.ServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,15 +19,19 @@ public class MainFunctionController {
 
     @Autowired
     private ServerService serverService;
+    @Autowired
+    private ClientInterfaceService clientInterfaceService;
 
 
-    @GetMapping("/home")
-    public String getHome() {
-        if (!serverService.hasServer()) {
-            return "redirect:/init";
-        }
-        return "home";
-    }
+//    @GetMapping("/home")
+//    public String home(@RequestParam String selectedInterface, Model model) {
+//        // 这里处理selectedInterface
+//        // 例如，将它添加到模型中，以便在视图中显示
+//        model.addAttribute("selectedInterface", selectedInterface);
+//
+//        // 返回home视图
+//        return "home";
+//    }
 
     @GetMapping("/init")
     public String getInitConfigPage() {
@@ -56,16 +61,32 @@ public class MainFunctionController {
 
     @GetMapping("/select")
     public String selectInterface(Model model) {
-        List<String> interfaces = serverService.getServerInterfaceName();
+        if (!serverService.hasServer()) {
+            return "redirect:/init";
+        }
+
+        List<String> interfaces = serverService.getServerInterfaceNames();
         model.addAttribute("interfaces", interfaces);
         return "select";
     }
-//    @GetMapping("/home")
-//    public String home(Model model) {
-//        model.addAttribute("serverName", "My Server");
-//        model.addAttribute("serverInterfaceName", serverService.getServerInterfaceName());
-//        return "home";
-//    }
 
+    @PostMapping("/select")
+    public String processSelectedInterface(@RequestParam String selectedInterface) {
+        return "redirect:/home?selectedInterface=" + selectedInterface;
+    }
 
+    @GetMapping("/home")
+    public String home(@RequestParam(required = false) String selectedInterface, Model model) {
+        if (selectedInterface != null && !selectedInterface.isEmpty()) {
+            // 假设 serverService 有方法来获取ServerInterface的详细信息
+            model.addAttribute("serverInterfaceName", selectedInterface);
+            model.addAttribute("publicKey", serverService.getPublicKey(selectedInterface));
+            model.addAttribute("address", serverService.getAddress(selectedInterface));
+            model.addAttribute("listenPort", serverService.getListenPort(selectedInterface));
+            model.addAttribute("ethPort", serverService.getEthPort(selectedInterface));
+            List<String> clientNames = ;
+            model.addAttribute("clients", clientNames);
+        }
+        return "home";
+    }
 }

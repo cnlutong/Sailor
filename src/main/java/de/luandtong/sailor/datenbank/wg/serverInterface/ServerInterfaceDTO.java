@@ -21,10 +21,10 @@ public class ServerInterfaceDTO {
 
     private LocalDateTime time;
 
-    public ServerInterfaceDTO(UUID uuid, String serverInterfaceName, UUID wginterfacekeyuuid, String address, String listenPort, String ethPort) {
+    public ServerInterfaceDTO(UUID uuid, String serverInterfaceName, UUID interfaceKeyUUID, String address, String listenPort, String ethPort) {
         this.uuid = uuid;
         this.serverInterfaceName = serverInterfaceName;
-        this.interfaceKeyUUID = wginterfacekeyuuid;
+        this.interfaceKeyUUID = interfaceKeyUUID;
         this.address = address;
         this.listenPort = listenPort;
         this.ethPort = ethPort;
@@ -32,11 +32,7 @@ public class ServerInterfaceDTO {
     }
 
     ServerInterface toServerInterface() {
-        return new ServerInterface(this.uuid, null, this.address, this.listenPort, this.ethPort);
-    }
-
-    public Long getId() {
-        return id;
+        return new ServerInterface(this.uuid, interfaceKeyUUID, this.address, this.listenPort, this.ethPort);
     }
 
     public UUID getUuid() {
@@ -47,7 +43,7 @@ public class ServerInterfaceDTO {
         return serverInterfaceName;
     }
 
-    public UUID getWginterfacekeyuuid() {
+    public UUID getInterfaceKeyUUID() {
         return interfaceKeyUUID;
     }
 

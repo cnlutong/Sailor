@@ -1,7 +1,6 @@
 package de.luandtong.sailor.repository.wg;
 
 import de.luandtong.sailor.domian.wg.ServerInterface;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;

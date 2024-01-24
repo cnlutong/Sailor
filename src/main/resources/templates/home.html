@@ -10,44 +10,43 @@
 <header>
     <h1>Sailor</h1>
 </header>
-<main>
-    <section class="info">
-        <h2>服务器状态</h2>
-        <p>Server Name: <span th:text="${serverName}"></span></p>
-        <p>Server Interface Name: <span th:text="${serverInterfaceName}"></span></p>
-    </section>
+<main class="main-container">
+    <div class="left-container">
+        <section class="info section-container">
+            <h2>服务器状态</h2>
+            <p>Server Name: <span th:text="${serverName}"></span></p>
+            <p>Server Interface Name: <span th:text="${serverInterfaceName}"></span></p>
+        </section>
 
+        <section class="interface-detail section-container">
+            <h2>ServerInterface Detail</h2>
+            <p>Interface Name: <span th:text="${serverInterfaceName}"></span></p>
+            <p>Public Key: <span th:text="${publicKey}"></span></p>
+            <p>Address: <span th:text="${address}"></span></p>
+            <p>Listen Port: <span th:text="${listenPort}"></span></p>
+            <p>Eth Port: <span th:text="${ethPort}"></span></p>
+        </section>
 
-    <section class="interface">
-        <h2>ServerInterface</h2>
-        <!-- 展示ServerInterface信息 -->
-        <!-- 示例: <p>Interface Name: <span th:text="${interfaceName}"></span></p> -->
-        <!-- 从后端获取数据并显示 -->
-    </section>
+        <section class="client-interface section-container">
+            <h2>管理ClientInterface</h2>
+            <form th:action="@{/add-client-interface}" method="post">
+                <input type="text" name="clientName" placeholder="Client Name" required>
+                <button type="submit" class="next-button">添加ClientInterface</button>
+            </form>
+        </section>
+    </div>
 
-    <section class="client-interface">
-        <h2>管理ClientInterface</h2>
-        <form th:action="@{/add-client-interface}" method="post">
-            <!-- 添加ClientInterface的表单 -->
-            <input type="text" name="clientName" placeholder="Client Name" required>
-            <button type="submit" class="next-button">添加ClientInterface</button>
-        </form>
-        <div class="client-list">
-            <h3>已添加的ClientInterface</h3>
-            <!-- 从后端获取并列出ClientInterface -->
-            <!-- 示例:
+    <div class="right-container">
+        <div class="client-list section-container">
+            <h2>已添加的ClientInterface</h2>
             <ul>
                 <li th:each="client : ${clients}">
-                    <span th:text="${client.name}"></span>
-                    <form th:action="@{/delete-client-interface}" method="post">
-                        <input type="hidden" name="clientId" th:value="${client.id}">
-                        <button type="submit">删除</button>
-                    </form>
+                    <span th:text="${clientName}"></span>
+                    <button type="button" th:onclick="'javascript:showQRCode(\'' + ${client.id} + '\');'">显示二维码
+                    </button>
                 </li>
-            </ul>
-            -->
         </div>
-    </section>
+    </div>
 </main>
 <footer>
     <p>&copy; 2023 Sailor. All rights reserved.</p>

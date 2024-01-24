@@ -120,4 +120,38 @@ footer {
     border-color: #ebccd1;
 }
 
-/* 其他样式保持不变... */
+/* 添加新的布局样式 */
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* 如果需要让两边顶部对齐 */
+    max-width: 1200px; /* 或根据您的设计调整 */
+    margin: 0 auto; /* 居中对齐 */
+    padding: 20px;
+}
+
+.left-container {
+    flex: 1; /* 左侧容器占据剩余空间 */
+    margin-right: 20px; /* 为了在两个部分之间添加一些间隔 */
+}
+
+.right-container {
+    flex: 1; /* 右侧容器占据剩余空间 */
+    margin-left: 20px; /* 为了在两个部分之间添加一些间隔 */
+}
+
+.section-container {
+    background-color: #fff; /* 白色背景 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+    padding: 15px;
+    margin-bottom: 20px; /* 间距 */
+    text-align: left; /* 左对齐文本 */
+}
+
+input[type="text"] {
+    width: 60%; /* 使输入框宽度填满父元素 */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}

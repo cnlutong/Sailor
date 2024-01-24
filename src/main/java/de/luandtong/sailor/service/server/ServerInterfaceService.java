@@ -1,6 +1,5 @@
 package de.luandtong.sailor.service.server;
 
-import de.luandtong.sailor.datenbank.wg.serverInterface.ServerInterfaceRepositoryImpl;
 import de.luandtong.sailor.domian.wg.ServerInterface;
 import de.luandtong.sailor.repository.wg.ServerInterfaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class ServerInterfaceService {
         return serverInterfaceRepository.findServerInterfaceByServername(serverInterfaceName);
     }
 
-    public boolean hasServerInterface(){
+    public boolean hasServerInterface() {
         return serverInterfaceRepository.hasServerInterface();
     }
 
@@ -38,4 +37,6 @@ public class ServerInterfaceService {
     public List<String> findAllServerInterfaceName() {
         return serverInterfaceRepository.findAllServerInterfaceName();
     }
+
+
 }

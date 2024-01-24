@@ -21,7 +21,7 @@ public class SecurityConfig {
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/log-in")  // 自定义登录页面
-                        .defaultSuccessUrl("/home", true)  // 登录成功后的重定向
+                        .defaultSuccessUrl("/select", true)  // 登录成功后的重定向
                         .permitAll()
                 )
                 .logout(logout -> logout

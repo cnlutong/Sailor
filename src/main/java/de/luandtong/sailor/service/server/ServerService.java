@@ -1,20 +1,16 @@
 package de.luandtong.sailor.service.server;
 
 import de.luandtong.sailor.domian.server.Server;
-import de.luandtong.sailor.domian.wg.ServerInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.availability.ApplicationAvailabilityAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 //服务器初始化相关
 @Service
 public class ServerService {
-
 
 
     private Server server;
@@ -35,7 +31,7 @@ public class ServerService {
         UUID keyUUID = UUID.randomUUID();
         interfaceKeyService.save(keyUUID, key.get(0), key.get(1));
         UUID serverUUID = UUID.randomUUID();
-        serverInterfaceService.save(serverUUID, serverInterfaceName, keyUUID, address ,listenPort, ethPort);
+        serverInterfaceService.save(serverUUID, serverInterfaceName, keyUUID, address, listenPort, ethPort);
 
     }
 
@@ -63,10 +59,24 @@ public class ServerService {
         return serverInterfaceService.hasServerInterface();
     }
 
-    public List<String> getServerInterfaceName(){
-        return null;
-//        return serverInterfaceService.findAllServerInterfaceName();
+    public List<String> getServerInterfaceNames() {
+        return serverInterfaceService.findAllServerInterfaceName();
     }
 
 
+    public String getPublicKey(String selectedInterface) {
+        return interfaceKeyService.findWGInterfaceKeyByUuid(serverInterfaceService.findServerInterfaceByServername(selectedInterface).getInterfaceKey()).publicKey();
+    }
+
+    public String getAddress(String selectedInterface) {
+        return serverInterfaceService.findServerInterfaceByServername(selectedInterface).getAddress();
+    }
+
+    public String getListenPort(String selectedInterface) {
+        return serverInterfaceService.findServerInterfaceByServername(selectedInterface).getListenPort();
+    }
+
+    public String getEthPort(String selectedInterface) {
+        return serverInterfaceService.findServerInterfaceByServername(selectedInterface).getEthPort();
+    }
 }

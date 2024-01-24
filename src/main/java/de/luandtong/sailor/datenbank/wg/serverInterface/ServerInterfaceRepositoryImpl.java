@@ -16,8 +16,8 @@ public class ServerInterfaceRepositoryImpl implements ServerInterfaceRepository 
     private ServerInterfaceDBRepository serverInterfaceDBRepository;
 
     @Override
-    public void save(UUID uuid, String serverInterfaceName, UUID wGInterfaceKeyUUID, String address, String listenPort, String ethPort) {
-        serverInterfaceDBRepository.save(new ServerInterfaceDTO(uuid, serverInterfaceName, wGInterfaceKeyUUID, address, listenPort, ethPort));
+    public void save(UUID uuid, String serverInterfaceName, UUID interfaceKeyUUID, String address, String listenPort, String ethPort) {
+        serverInterfaceDBRepository.save(new ServerInterfaceDTO(uuid, serverInterfaceName, interfaceKeyUUID, address, listenPort, ethPort));
     }
 
     @Override

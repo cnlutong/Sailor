@@ -17,7 +17,7 @@ public class ServerInterface implements WGInterface {
 
     private UUID uuid;
 
-    private InterfaceKey interfaceKey;
+    private UUID interfaceKey;
     private String address;
     private String listenPort;
     private String ethPort;
@@ -28,16 +28,36 @@ public class ServerInterface implements WGInterface {
         return "[Interface]\n" +
                 "Address = " + this.address + "\n" +
                 "ListenPort = " + this.listenPort + "\n" +
-                "PrivateKey = " + this.interfaceKey.privateLey() + "\n" +
+                "PrivateKey = " + this.interfaceKey + "\n" +
                 "PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o " + this.ethPort + " -j MASQUERADE" + "\n" +
                 "PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o " + this.ethPort + " -j MASQUERADE" + "\n";
     }
 
-    public ServerInterface(UUID uuid, InterfaceKey interfaceKey, String address, String listenPort, String ethPort) {
+    public ServerInterface(UUID uuid, UUID interfaceKey, String address, String listenPort, String ethPort) {
         this.uuid = uuid;
         this.interfaceKey = interfaceKey;
         this.address = address;
         this.listenPort = listenPort;
         this.ethPort = ethPort;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public UUID getInterfaceKey() {
+        return interfaceKey;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getListenPort() {
+        return listenPort;
+    }
+
+    public String getEthPort() {
+        return ethPort;
     }
 }

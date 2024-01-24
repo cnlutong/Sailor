@@ -14,7 +14,7 @@ public class InterfaceKeyService {
     private InterfaceKeyRepository interfaceKeyRepository;
 
 
-    public void save(UUID uuid, String publicKey, String privateKey){
+    public void save(UUID uuid, String publicKey, String privateKey) {
         interfaceKeyRepository.save(uuid, publicKey, privateKey);
     }
 

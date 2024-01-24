@@ -2,7 +2,6 @@ package de.luandtong.sailor.service.server;
 
 import de.luandtong.sailor.domian.wg.ClientInterface;
 import de.luandtong.sailor.repository.wg.ClientInterfaceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
