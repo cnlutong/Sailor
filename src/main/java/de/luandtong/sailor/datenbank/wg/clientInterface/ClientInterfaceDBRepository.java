@@ -12,4 +12,8 @@ public interface ClientInterfaceDBRepository extends CrudRepository<ClientInterf
     List<ClientInterfaceDTO> findAll();
 
     ClientInterfaceDTO findClientInterfaceDTOByClientName(String clientName);
+
+    List<ClientInterfaceDTO> findClientInterfaceDTOSByServerInterfaceUUID(UUID serverInterfaceUUID);
+
+
 }

@@ -14,11 +14,15 @@ public class InterfaceKeyService {
     private InterfaceKeyRepository interfaceKeyRepository;
 
 
-    public void save(UUID uuid, String publicKey, String privateKey) {
+    public void save(java.util.UUID uuid, String publicKey, String privateKey) {
         interfaceKeyRepository.save(uuid, publicKey, privateKey);
     }
 
     public InterfaceKey findWGInterfaceKeyByUuid(UUID uuid) {
         return interfaceKeyRepository.findWGInterfaceKeyByUuid(uuid);
+    }
+
+    public String getPublicKeyByUuid(UUID uuid) {
+        return interfaceKeyRepository.findWGInterfaceKeyByUuid(uuid).publicKey();
     }
 }

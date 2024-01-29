@@ -16,25 +16,60 @@ import java.util.UUID;
 public class ClientInterface implements WGInterface {
 
     private UUID uuid;
-
     private String clientName;
-    private InterfaceKey interfaceKey;
+    private UUID serverInterfaceUUID;
     private String address;
     private String dns;
     private String persistentKeepalive;
 
 
-    @Override
-    public String creativeInterfaceConfFile() {
-        return null;
-    }
-
-    public ClientInterface(UUID uuid, String clientName, InterfaceKey interfaceKey, String address, String dns, String persistentKeepalive) {
+    public ClientInterface(UUID uuid, String clientName, UUID serverInterfaceUUID, String address, String dns, String persistentKeepalive) {
         this.uuid = uuid;
         this.clientName = clientName;
-        this.interfaceKey = interfaceKey;
+        this.serverInterfaceUUID = serverInterfaceUUID;
         this.address = address;
         this.dns = dns;
         this.persistentKeepalive = persistentKeepalive;
     }
+
+    public String creativeInterfaceConfFile(String privateKey, String publicKey, String publicIP, String listenPort) {
+        // 创建 WireGuard 配置文件内容
+        return "#client1 \n" +
+                "[Interface]\n" +
+                "PrivateKey = " + privateKey + "\n" +
+                "Address = " + this.address + "\n" +
+                "DNS = " + this.dns + "\n" +
+
+                "[Peer]\n" +
+                "PublicKey = " + publicKey + "\n" +
+                "Endpoint = " + publicIP + listenPort + "\n" +
+                "AllowedIPs = 0.0.0.0/0\n" +
+                "PersistentKeepalive = " + this.persistentKeepalive;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public UUID getInterfaceKey() {
+        return serverInterfaceUUID;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDns() {
+        return dns;
+    }
+
+    public String getPersistentKeepalive() {
+        return persistentKeepalive;
+    }
+
+
 }

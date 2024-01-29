@@ -37,4 +37,16 @@ public class ServerInterfaceRepositoryImpl implements ServerInterfaceRepository 
         System.out.println(serverInterfaceDBRepository.count());
         return serverInterfaceDBRepository.count() > 0;
     }
+
+    @Override
+    public UUID findServerInterfaceUUIDByInterfaceName(String serverInterfaceName) {
+        return serverInterfaceDBRepository.findByServerInterfaceName(serverInterfaceName).getUuid();
+    }
+
+    @Override
+    public UUID findServerInterfaceKeyUUIDByInterfaceName(String serverInterfaceName) {
+        return serverInterfaceDBRepository.findByServerInterfaceName(serverInterfaceName).getInterfaceKeyUUID();
+    }
+
+
 }

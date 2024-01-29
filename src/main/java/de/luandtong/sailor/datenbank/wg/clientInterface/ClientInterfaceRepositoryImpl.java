@@ -27,9 +27,16 @@ public class ClientInterfaceRepositoryImpl implements ClientInterfaceRepository 
     }
 
     @Override
-    public List<String> findAllClientInterfaceName() {
-        return clientInterfaceDBRepository.findAll().stream()
+    public List<String> findClientInterfaceNamesByServerInterfaceUUID(UUID serverInterfaceUUID) {
+        return clientInterfaceDBRepository.findClientInterfaceDTOSByServerInterfaceUUID(serverInterfaceUUID).stream()
                 .map(ClientInterfaceDTO::getClientName)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClientInterface> findClientInterfacesByServerInterfaceUUID(UUID serverInterfaceUUID) {
+        return clientInterfaceDBRepository.findClientInterfaceDTOSByServerInterfaceUUID(serverInterfaceUUID).stream()
+                .map(ClientInterfaceDTO::toClientInterface)
                 .collect(Collectors.toList());
     }
 

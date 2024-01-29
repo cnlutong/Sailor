@@ -5,6 +5,7 @@ import de.luandtong.sailor.repository.wg.ServerInterfaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -23,6 +24,11 @@ public class ServerInterfaceService {
         return serverInterfaceRepository.hasServerInterface();
     }
 
+    public String getServerInterfaceConfig(UUID uuid, UUID interfaceKey, String address, String listenPort, String ethPort, String privateKey) {
+        ServerInterface serverInterface = new ServerInterface(uuid, interfaceKey, address, listenPort, ethPort);
+        return serverInterface.creativeInterfaceConfFile(privateKey);
+    }
+
     public void save(UUID uuid, String ServerInterfaceName, UUID WGInterfaceKeyUUID, String address, String listenPort, String ethPort) {
         serverInterfaceRepository.save(uuid, ServerInterfaceName, WGInterfaceKeyUUID, address, listenPort, ethPort);
     }
@@ -34,8 +40,24 @@ public class ServerInterfaceService {
     }
 
 
-    public List<String> findAllServerInterfaceName() {
+    public List<String> findAllServerInterfaceNames() {
         return serverInterfaceRepository.findAllServerInterfaceName();
+    }
+
+    public UUID findServerInterfaceUUIDByInterfaceName(String serverInterfaceName) {
+        return serverInterfaceRepository.findServerInterfaceUUIDByInterfaceName(serverInterfaceName);
+    }
+
+    public UUID findServerInterfaceKeyUUIDByInterfaceName(String serverInterfaceName) {
+        return serverInterfaceRepository.findServerInterfaceKeyUUIDByInterfaceName(serverInterfaceName);
+    }
+
+
+    public String getSubnetz(ServerInterface serverInterface) {
+        String address = serverInterface.getAddress();
+
+        String[] parts = address.split("\\.");
+        return String.join(".", Arrays.copyOf(parts, 3));
     }
 
 

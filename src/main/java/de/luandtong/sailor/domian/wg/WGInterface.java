@@ -4,7 +4,4 @@ package de.luandtong.sailor.domian.wg;
 public interface WGInterface {
 
 
-    String creativeInterfaceConfFile();
-
-
 }

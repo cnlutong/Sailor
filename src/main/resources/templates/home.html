@@ -10,11 +10,18 @@
 <header>
     <h1>Sailor</h1>
 </header>
+<!-- 显示操作反馈消息 -->
+<div th:if="${successMessage}" class="alert success">
+    <p th:text="${successMessage}"></p>
+</div>
+<div th:if="${errorMessage}" class="alert error">
+    <p th:text="${errorMessage}"></p>
+</div>
+
 <main class="main-container">
     <div class="left-container">
         <section class="info section-container">
-            <h2>服务器状态</h2>
-            <p>Server Name: <span th:text="${serverName}"></span></p>
+            <h2>ServerInterface</h2>
             <p>Server Interface Name: <span th:text="${serverInterfaceName}"></span></p>
         </section>
 
@@ -29,11 +36,13 @@
 
         <section class="client-interface section-container">
             <h2>管理ClientInterface</h2>
-            <form th:action="@{/add-client-interface}" method="post">
+            <form th:action="@{/addClientInterface}" method="post" class="client-interface-form">
                 <input type="text" name="clientName" placeholder="Client Name" required>
+                <input type="hidden" name="selectedInterface" th:value="${selectedInterface}">
                 <button type="submit" class="next-button">添加ClientInterface</button>
             </form>
         </section>
+
     </div>
 
     <div class="right-container">
@@ -41,15 +50,47 @@
             <h2>已添加的ClientInterface</h2>
             <ul>
                 <li th:each="client : ${clients}">
-                    <span th:text="${clientName}"></span>
-                    <button type="button" th:onclick="'javascript:showQRCode(\'' + ${client.id} + '\');'">显示二维码
-                    </button>
+                    <!-- 按钮容器 -->
+                    <div class="client-button-container">
+                        <!-- 动态生成的下载按钮 -->
+                        <a th:href="downloadLink2.jpg" download="downloadLink2.jpg" th:text="${client}"
+                           class="client-button"></a>
+
+                        <!-- 固定的下载按钮 2 -->
+                        <a href="downloadLink2.jpg" download="ClientImage2.jpg" class="client-button">下载2</a>
+                        <!-- 删除按钮 -->
+                        <button type="button" class="client-button delete-button">删除</button>
+                    </div>
                 </li>
+            </ul>
         </div>
+    </div>
+
+
     </div>
 </main>
 <footer>
     <p>&copy; 2023 Sailor. All rights reserved.</p>
 </footer>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // 查询成功和失败的消息元素
+        let successAlert = document.querySelector('.alert.success');
+        let errorAlert = document.querySelector('.alert.error');
+        // 如果存在成功的消息，则2秒后隐藏
+        if (successAlert) {
+            setTimeout(function () {
+                successAlert.style.display = 'none'; // 隐藏成功反馈信息
+            }, 2000);
+        }
+        // 如果存在失败的消息，则同样2秒后隐藏
+        if (errorAlert) {
+            setTimeout(function () {
+                errorAlert.style.display = 'none'; // 隐藏失败反馈信息
+            }, 4000);
+        }
+    });
+</script>
 </body>
 </html>

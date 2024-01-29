@@ -12,7 +12,8 @@ public interface ClientInterfaceRepository {
 
     ClientInterface findClientInterfaceByClientName(String clientName);
 
-    List<String> findAllClientInterfaceName();
+    List<String> findClientInterfaceNamesByServerInterfaceUUID(UUID serverInterfaceUUI);
 
+    List<ClientInterface> findClientInterfacesByServerInterfaceUUID(UUID serverInterfaceUUID);
 }
 

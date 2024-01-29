@@ -94,6 +94,23 @@ footer {
 }
 
 
+/* 选择框样式，更好地与您的风格保持一致 */
+.form-group select {
+    width: 60%; /* 保持宽度与父容器一致 */
+    padding: 10px; /* 舒适的内边距，提升用户体验 */
+    font-size: 1em; /* 字体大小与界面其余部分保持一致 */
+    border-radius: 5px; /* 圆角设计，与按钮样式协调 */
+    border: 1px solid #ccc; /* 精细的边框颜色，与输入框边框协调 */
+    background-color: #fff; /* 背景色为白色，保持内容区背景一致 */
+    cursor: pointer; /* 指针光标，改善交互体验 */
+    text-align-last: center; /* 选择框文本居中，但不是所有浏览器都支持 */
+    appearance: none; /* 移除原生样式，为自定义样式做准备 */
+    color: #333; /* 文字颜色，与页面文字保持一致 */
+}
+
+
+
+
 .form-group input[type="text"],
 .form-group input[type="password"],
 .alert {
@@ -119,6 +136,28 @@ footer {
     background-color: #f2dede;
     border-color: #ebccd1;
 }
+
+.alert.success {
+    color: #333333; /* 深灰色文字，以增强可读性 */
+    background-color: #e6f9f0; /* 柔和的浅绿色背景 */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #b2d8cd; /* 淡绿色边框 */
+    border-radius: 4px;
+    text-align: center;
+}
+
+.alert.error {
+    color: #8b0000; /* 深红色文字，以增强可读性 */
+    background-color: #f9e6e6; /* 柔和的浅红色背景 */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #d8b2b2; /* 淡红色边框 */
+    border-radius: 4px;
+    text-align: center;
+}
+
+
 
 /* 添加新的布局样式 */
 .main-container {
@@ -149,9 +188,87 @@ footer {
 }
 
 input[type="text"] {
-    width: 60%; /* 使输入框宽度填满父元素 */
+    width: 50%; /* 使输入框宽度填满父元素 */
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+
+.client-interface-form {
+    display: flex; /* 应用Flexbox布局 */
+    align-items: center; /* 垂直居中对齐 */
+    justify-content: space-between; /* 元素之间的间距 */
+}
+
+.client-interface-form input[type="text"] {
+    flex-grow: 1; /* 输入框占据可用空间 */
+    margin-right: 10px; /* 输入框和按钮之间的间距 */
+}
+
+
+.client-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.client-list li {
+    margin-bottom: 10px;
+}
+
+.client-button-container {
+    display: flex; /* 使用flex布局 */
+    justify-content: space-between; /* 保持元素之间有间隔 */
+    padding: 0 10px; /* 在容器内侧添加间距 */
+}
+
+/* 第一个按钮 */
+.client-button-container .client-button:first-child {
+    flex-grow: 7;
+    flex-basis: 0;
+    margin-right: 10px; /* 在第一个按钮的右侧添加空隙 */
+    /* 其他样式保持不变 */
+}
+
+/* 第二个按钮 */
+.client-button-container .client-button:nth-child(2) {
+    flex-grow: 1.5;
+    flex-basis: 0;
+    margin-right: 10px; /* 在第二个按钮的右侧添加空隙 */
+    /* 其他样式保持不变 */
+}
+
+/* 删除按钮 */
+.client-button-container .delete-button {
+    flex-grow: 1.5;
+    flex-basis: 0;
+    /* 其他样式保持不变 */
+}
+
+
+.client-button-container a {
+    display: inline-block; /* 使链接表现为块级元素 */
+    padding: 10px 15px; /* 调整内边距 */
+    text-decoration: none; /* 去除下划线 */
+    color: white; /* 文字颜色 */
+    background-color: #006AB3; /* 背景颜色 */
+    border-radius: 5px; /* 圆角边框 */
+    transition: background-color 0.3s; /* 平滑颜色过渡 */
+}
+
+.client-button-container a:hover {
+    background-color: #005092; /* 鼠标悬停时的背景颜色 */
+}
+
+.client-button-container .delete-button {
+    background-color: #a94442; /* 基础背景颜色 */
+    color: white; /* 文字颜色 */
+    transition: background-color 0.3s ease; /* 背景颜色变化的过渡效果 */
+}
+
+.client-button-container .delete-button:hover {
+    background-color: #8a3c32; /* 鼠标悬停时的背景颜色 */
+}
+
+
+

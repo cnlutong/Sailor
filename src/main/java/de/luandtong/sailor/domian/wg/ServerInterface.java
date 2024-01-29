@@ -22,13 +22,12 @@ public class ServerInterface implements WGInterface {
     private String listenPort;
     private String ethPort;
 
-    @Override
-    public String creativeInterfaceConfFile() {
+    public String creativeInterfaceConfFile(String privateKey) {
         // 创建 WireGuard 配置文件内容
         return "[Interface]\n" +
                 "Address = " + this.address + "\n" +
                 "ListenPort = " + this.listenPort + "\n" +
-                "PrivateKey = " + this.interfaceKey + "\n" +
+                "PrivateKey = " + privateKey + "\n" +
                 "PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o " + this.ethPort + " -j MASQUERADE" + "\n" +
                 "PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o " + this.ethPort + " -j MASQUERADE" + "\n";
     }

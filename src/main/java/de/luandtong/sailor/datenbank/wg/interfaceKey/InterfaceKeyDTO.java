@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Table("InterfaceKeys")
 public class InterfaceKeyDTO {
@@ -13,12 +12,12 @@ public class InterfaceKeyDTO {
     @Id
     Long id;
 
-    UUID uuid;
+    java.util.UUID uuid;
     String publicKey;
     String privateKey;
     private LocalDateTime time;
 
-    public InterfaceKeyDTO(UUID uuid, String publicKey, String privateKey) {
+    public InterfaceKeyDTO(java.util.UUID uuid, String publicKey, String privateKey) {
         this.uuid = uuid;
         this.publicKey = publicKey;
         this.privateKey = privateKey;
@@ -29,7 +28,7 @@ public class InterfaceKeyDTO {
         return new InterfaceKey(this.uuid, this.publicKey, this.privateKey);
     }
 
-    public UUID getUuid() {
+    public java.util.UUID getUuid() {
         return uuid;
     }
 

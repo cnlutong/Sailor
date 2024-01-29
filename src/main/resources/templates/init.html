@@ -10,6 +10,11 @@
 <header>
     <h1>Sailor</h1>
 </header>
+<!-- 显示操作反馈消息 -->
+<div th:if="${errorMessage}" class="alert error">
+    <p th:text="${errorMessage}"></p>
+</div>
+
 <main>
     <section class="intro">
         <h2>初始化配置</h2>
@@ -17,10 +22,7 @@
     </section>
     <form th:action="@{/init}" method="post">
         <h3>基本信息</h3>
-        <div class="form-group">
-            <label for="serverName">ServerName:</label>
-            <input type="text" id="serverName" name="serverName" required>
-        </div>
+
         <div class="form-group">
             <label for="serverInterfaceName">ServerInterfaceName:</label>
             <input type="text" id="serverInterfaceName" name="serverInterfaceName" required>
@@ -47,5 +49,25 @@
 <footer>
     <p>&copy; 2023 Sailor. All rights reserved.</p>
 </footer>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // 查询成功和失败的消息元素
+        let successAlert = document.querySelector('.alert.success');
+        let errorAlert = document.querySelector('.alert.error');
+        // 如果存在成功的消息，则2秒后隐藏
+        if (successAlert) {
+            setTimeout(function () {
+                successAlert.style.display = 'none'; // 隐藏成功反馈信息
+            }, 2000);
+        }
+        // 如果存在失败的消息，则同样2秒后隐藏
+        if (errorAlert) {
+            setTimeout(function () {
+                errorAlert.style.display = 'none'; // 隐藏失败反馈信息
+            }, 4000);
+        }
+    });
+</script>
 </body>
 </html>

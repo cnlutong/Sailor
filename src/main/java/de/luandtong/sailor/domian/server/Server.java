@@ -17,19 +17,26 @@ public class Server {
 
     //    初始化
     public void initializeServer() throws IOException, InterruptedException {
+        this.serverNeedsInitialization = !this.testClients();
 
         if (!this.serverNeedsInitialization) {
+            System.out.println("Server dont need init");
             return;
         }
-        System.out.println("Server Initing");
-
-        createConfigFileStoragePath();
+        System.out.println("Server initing");
 
         modifySysctlConfFile();
 
         installSoftware();
 
+        createConfigFileStoragePath();
+
         this.serverNeedsInitialization = false;
+    }
+
+    private boolean testClients() throws IOException, InterruptedException {
+        String cmd = "test -d /etc/wireguard/clients/ && echo \"true\" || echo \"false\"";
+        return Boolean.parseBoolean(run(cmd));
     }
 
 
@@ -111,7 +118,7 @@ public class Server {
 
         String serverCong = "server_" + serverName + ".conf";
         // 更新服务器 WireGuard 配置文件以添加客户端信息
-        String peerInfo = "\n" + "[Peer]\n" + "PublicKey = " + clientPublicKey + "\n" + "AllowedIPs = " + clientAddress + "\n";
+        String peerInfo = "\n" + "#" + clientName + "\n" + "[Peer]\n" + "PublicKey = " + clientPublicKey + "\n" + "AllowedIPs = " + clientAddress + "\n";
 
         Files.write(Paths.get("/etc/wireguard/" + serverCong), peerInfo.getBytes(), StandardOpenOption.APPEND);
 
@@ -137,7 +144,7 @@ public class Server {
         run("sudo sysctl -p");
     }
 
-    private String getDefaultEth() throws IOException, InterruptedException {
+    public String getDefaultEth() throws IOException, InterruptedException {
         // 获取默认网卡接口
         return run("ip -o -4 route show to default | awk '{print $5}'");
     }
@@ -179,5 +186,9 @@ public class Server {
 
     public void setServerNeedsInitialization(boolean serverNeedsInitialization) {
         this.serverNeedsInitialization = serverNeedsInitialization;
+    }
+
+    public String getServerPublicIP() throws IOException, InterruptedException {
+        return run("curl -s ifconfig.me");
     }
 }
