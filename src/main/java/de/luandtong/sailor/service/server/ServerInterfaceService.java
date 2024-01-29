@@ -5,6 +5,7 @@ import de.luandtong.sailor.repository.wg.ServerInterfaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -34,8 +35,19 @@ public class ServerInterfaceService {
     }
 
 
-    public List<String> findAllServerInterfaceName() {
+    public List<String> findAllServerInterfaceNames() {
         return serverInterfaceRepository.findAllServerInterfaceName();
+    }
+
+    public UUID findServerInterfaceUUIDByInterfaceName(String serverInterfaceName) {
+        return serverInterfaceRepository.findServerInterfaceUUIDByInterfaceName(serverInterfaceName);
+    }
+
+    public String getSubnetz(ServerInterface serverInterface) {
+        String address = serverInterface.getAddress();
+
+        String[] parts = address.split("\\.");
+        return String.join(".", Arrays.copyOf(parts, 3));
     }
 
 

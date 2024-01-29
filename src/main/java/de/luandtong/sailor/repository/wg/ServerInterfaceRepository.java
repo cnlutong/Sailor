@@ -14,4 +14,6 @@ public interface ServerInterfaceRepository {
     List<String> findAllServerInterfaceName();
 
     boolean hasServerInterface();
+
+    UUID findServerInterfaceUUIDByInterfaceName(String serverInterfaceName);
 }

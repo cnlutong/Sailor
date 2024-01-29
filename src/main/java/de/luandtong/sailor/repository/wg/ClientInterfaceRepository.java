@@ -14,5 +14,6 @@ public interface ClientInterfaceRepository {
 
     List<String> findAllClientInterfaceName();
 
+    List<ClientInterface> findClientInterfacesByServerInterfaceUUID(UUID serverInterfaceUUID);
 }
 

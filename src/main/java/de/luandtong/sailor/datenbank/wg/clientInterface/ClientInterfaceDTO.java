@@ -11,12 +11,12 @@ import java.util.UUID;
 public class ClientInterfaceDTO {
 
     @Id
-    Long id;
+    private Long id;
     private UUID uuid;
 
     private String clientName;
     private UUID interfaceKeyUUID;
-    private UUID ServerInterfaceUUID;
+    private UUID serverInterfaceUUID;
     private String address;
     private String dns;
     private String persistentKeepalive;
@@ -27,7 +27,7 @@ public class ClientInterfaceDTO {
         this.uuid = uuid;
         this.clientName = clientName;
         this.interfaceKeyUUID = interfaceKeyUUID;
-        this.ServerInterfaceUUID = serverInterfaceUUID;
+        this.serverInterfaceUUID = serverInterfaceUUID;
         this.address = address;
         this.dns = dns;
         this.persistentKeepalive = persistentKeepalive;
@@ -35,7 +35,7 @@ public class ClientInterfaceDTO {
     }
 
     ClientInterface toClientInterface() {
-        return new ClientInterface(uuid, clientName, null, address, dns, persistentKeepalive);
+        return new ClientInterface(uuid, clientName, serverInterfaceUUID, address, dns, persistentKeepalive);
     }
 
     public UUID getUuid() {
@@ -51,7 +51,7 @@ public class ClientInterfaceDTO {
     }
 
     public UUID getServerInterfaceUUID() {
-        return ServerInterfaceUUID;
+        return serverInterfaceUUID;
     }
 
     public String getAddress() {

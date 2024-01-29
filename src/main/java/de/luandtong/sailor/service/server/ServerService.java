@@ -1,6 +1,7 @@
 package de.luandtong.sailor.service.server;
 
 import de.luandtong.sailor.domian.server.Server;
+import de.luandtong.sailor.domian.wg.ClientInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class ServerService {
     }
 
     public void creativeServerInterface(String serverName, String serverInterfaceName, String address, String listenPort, String ethPort) throws IOException, InterruptedException {
-        List<String> key = this.generateServerKey(serverName);
+        List<String> key = generateServerKey(serverName);
         UUID keyUUID = UUID.randomUUID();
         interfaceKeyService.save(keyUUID, key.get(0), key.get(1));
         UUID serverUUID = UUID.randomUUID();
@@ -35,6 +36,33 @@ public class ServerService {
 
     }
 
+    //Todo 麻烦的添加用户
+//    void saveClientInterface(UUID uuid, String clientName, UUID interfaceKeyUUID, UUID serverInterfaceUUID, String address, String dns, String persistentKeepalive)
+    public void creativeClientInterface(String selectedInterface, String clientName) throws IOException, InterruptedException {
+        List<String> key = generateClientKey(clientName);
+        UUID keyUUID = UUID.randomUUID();
+        interfaceKeyService.save(keyUUID, key.get(0), key.get(1));
+        UUID clientUUID = UUID.randomUUID();
+
+        String address = getANewAddress(selectedInterface);
+        System.out.println("address" + "." + address);
+        String dns = "1.1.1.1, 1.0.0.1";
+        String persistentKeepalive = "15";
+        clientInterfaceService.saveClientInterface(clientUUID, clientName, keyUUID, getServerInterfaceUUID(selectedInterface), address, dns, persistentKeepalive);
+    }
+
+    private String getANewAddress(String selectedInterface) {
+        return serverInterfaceService.getSubnetz(serverInterfaceService.findServerInterfaceByServername(selectedInterface)) + this.getNewClientAddress(selectedInterface);
+    }
+
+    private String getNewClientAddress(String selectedInterface) {
+        UUID serverInterfaceUUID = getServerInterfaceUUID(selectedInterface);
+        List<ClientInterface> clientInterfaces = clientInterfaceService.findClientInterfacesByServerInterfaceUUID(serverInterfaceUUID);
+        int lastAddress = clientInterfaceService.getLastAddressFromClientInterfaces(clientInterfaces);
+        return String.valueOf(lastAddress + 1);
+    }
+
+    //    Server
     public void initializeServer() throws IOException, InterruptedException {
         server.initializeServer();
     }
@@ -55,28 +83,43 @@ public class ServerService {
         return server.generateKey(true, name);
     }
 
+    public List<String> generateClientKey(String name) throws IOException, InterruptedException {
+        return server.generateKey(false, name);
+    }
+
     public boolean hasServer() {
         return serverInterfaceService.hasServerInterface();
     }
 
+
+    //    ServerInterface
     public List<String> getServerInterfaceNames() {
-        return serverInterfaceService.findAllServerInterfaceName();
+        return serverInterfaceService.findAllServerInterfaceNames();
     }
 
-
-    public String getPublicKey(String selectedInterface) {
+    public String getServerInterfacePublicKey(String selectedInterface) {
         return interfaceKeyService.findWGInterfaceKeyByUuid(serverInterfaceService.findServerInterfaceByServername(selectedInterface).getInterfaceKey()).publicKey();
     }
 
-    public String getAddress(String selectedInterface) {
+    public String getServerInterfaceAddress(String selectedInterface) {
         return serverInterfaceService.findServerInterfaceByServername(selectedInterface).getAddress();
     }
 
-    public String getListenPort(String selectedInterface) {
+    public String getServerInterfaceListenPort(String selectedInterface) {
         return serverInterfaceService.findServerInterfaceByServername(selectedInterface).getListenPort();
     }
 
-    public String getEthPort(String selectedInterface) {
+    public String getServerInterfaceEthPort(String selectedInterface) {
         return serverInterfaceService.findServerInterfaceByServername(selectedInterface).getEthPort();
     }
+
+    public UUID getServerInterfaceUUID(String selectedInterface) {
+        return serverInterfaceService.findServerInterfaceUUIDByInterfaceName(selectedInterface);
+    }
+
+    //    ClientInterface
+    public List<String> getClientInterfaceNames() {
+        return clientInterfaceService.findAllClientInterfaceNames();
+    }
+
 }

@@ -16,9 +16,8 @@ import java.util.UUID;
 public class ClientInterface implements WGInterface {
 
     private UUID uuid;
-
     private String clientName;
-    private InterfaceKey interfaceKey;
+    private UUID serverInterfaceUUID;
     private String address;
     private String dns;
     private String persistentKeepalive;
@@ -29,12 +28,36 @@ public class ClientInterface implements WGInterface {
         return null;
     }
 
-    public ClientInterface(UUID uuid, String clientName, InterfaceKey interfaceKey, String address, String dns, String persistentKeepalive) {
+    public ClientInterface(UUID uuid, String clientName, UUID serverInterfaceUUID, String address, String dns, String persistentKeepalive) {
         this.uuid = uuid;
         this.clientName = clientName;
-        this.interfaceKey = interfaceKey;
+        this.serverInterfaceUUID = serverInterfaceUUID;
         this.address = address;
         this.dns = dns;
         this.persistentKeepalive = persistentKeepalive;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public UUID getInterfaceKey() {
+        return serverInterfaceUUID;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDns() {
+        return dns;
+    }
+
+    public String getPersistentKeepalive() {
+        return persistentKeepalive;
     }
 }

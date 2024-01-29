@@ -1,6 +1,5 @@
 package de.luandtong.sailor.controller.function;
 
-import de.luandtong.sailor.service.server.ClientInterfaceService;
 import de.luandtong.sailor.service.server.ServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,19 +19,6 @@ public class MainFunctionController {
 
     @Autowired
     private ServerService serverService;
-    @Autowired
-    private ClientInterfaceService clientInterfaceService;
-
-
-//    @GetMapping("/home")
-//    public String home(@RequestParam String selectedInterface, Model model) {
-//        // 这里处理selectedInterface
-//        // 例如，将它添加到模型中，以便在视图中显示
-//        model.addAttribute("selectedInterface", selectedInterface);
-//
-//        // 返回home视图
-//        return "home";
-//    }
 
     @GetMapping("/init")
     public String getInitConfigPage() {
@@ -77,16 +64,33 @@ public class MainFunctionController {
 
     @GetMapping("/home")
     public String home(@RequestParam(required = false) String selectedInterface, Model model) {
+        System.out.println(selectedInterface);
         if (selectedInterface != null && !selectedInterface.isEmpty()) {
             // 假设 serverService 有方法来获取ServerInterface的详细信息
+            model.addAttribute("selectedInterface", selectedInterface);
             model.addAttribute("serverInterfaceName", selectedInterface);
-            model.addAttribute("publicKey", serverService.getPublicKey(selectedInterface));
-            model.addAttribute("address", serverService.getAddress(selectedInterface));
-            model.addAttribute("listenPort", serverService.getListenPort(selectedInterface));
-            model.addAttribute("ethPort", serverService.getEthPort(selectedInterface));
-            List<String> clientNames = ;
+            model.addAttribute("publicKey", serverService.getServerInterfacePublicKey(selectedInterface));
+            model.addAttribute("address", serverService.getServerInterfaceAddress(selectedInterface));
+            model.addAttribute("listenPort", serverService.getServerInterfaceListenPort(selectedInterface));
+            model.addAttribute("ethPort", serverService.getServerInterfaceEthPort(selectedInterface));
+
+            List<String> clientNames = serverService.getClientInterfaceNames();
+            System.out.println(clientNames);
             model.addAttribute("clients", clientNames);
         }
         return "home";
+    }
+
+    @PostMapping("/addClientInterface")
+    public String addClientInterface(@RequestParam String clientName, @RequestParam String selectedInterface, RedirectAttributes redirectAttributes) throws IOException, InterruptedException {
+        System.out.println("Post selectedInterface: " + selectedInterface);
+        System.out.println("Post clientName: " + clientName);
+        serverService.creativeClientInterface(selectedInterface, clientName);
+
+        // 添加操作成功的反馈消息
+        redirectAttributes.addFlashAttribute("successMessage", "ClientInterface 已成功添加");
+
+        // 重定向到主页
+        return "redirect:/home?selectedInterface=" + selectedInterface;
     }
 }

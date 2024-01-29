@@ -33,4 +33,11 @@ public class ClientInterfaceRepositoryImpl implements ClientInterfaceRepository 
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ClientInterface> findClientInterfacesByServerInterfaceUUID(UUID serverInterfaceUUID) {
+        return clientInterfaceDBRepository.findClientInterfaceDTOSByServerInterfaceUUID(serverInterfaceUUID).stream()
+                .map(ClientInterfaceDTO::toClientInterface)
+                .collect(Collectors.toList());
+    }
+
 }
