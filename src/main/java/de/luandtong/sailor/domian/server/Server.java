@@ -42,16 +42,18 @@ public class Server {
 
     //    启用服务
     public void enableServer(String name) throws IOException, InterruptedException {
-        String serverCong = "server_" + name + ".conf";
+        String serverCong = "server_" + name;
         // 启用 WireGuard 服务
         run("sudo systemctl enable wg-quick@" + serverCong);
+        System.out.println("sudo systemctl enable wg-quick@" + serverCong);
     }
 
     //    启动服务
     public void startServer(String name) throws IOException, InterruptedException {
-        String serverCong = "server_" + name + ".conf";
+        String serverCong = "server_" + name;
         // 启动 WireGuard 服务
         run("sudo systemctl start wg-quick@" + serverCong);
+        System.out.println("sudo systemctl start wg-quick@" + serverCong);
     }
 
     //    重启服务
@@ -59,6 +61,7 @@ public class Server {
         String serverCong = "server_" + name;
         // 重启 WireGuard 服务以应用更改
         run("sudo systemctl restart wg-quick@" + serverCong + ".service");
+        System.out.println("sudo systemctl restart wg-quick@" + serverCong + ".service");
     }
 
     //    创建密钥
@@ -107,7 +110,7 @@ public class Server {
         } else {
             String clientName = "client_" + name;
             // 写入客户端 WireGuard 配置文件
-            Files.write(Paths.get("/etc/wireguard/clients/" + clientName + "_wg0.conf"), conf.getBytes());
+            Files.write(Paths.get("/etc/wireguard/clients/" + clientName + ".conf"), conf.getBytes());
         }
         // 修改 WireGuard 配置文件和密钥的权限
         run("sudo chmod -R 600 /etc/wireguard/");
@@ -158,6 +161,7 @@ public class Server {
 //        }
 
         run("sudo mkdir /etc/wireguard/clients/");
+        run("sudo mkdir /etc/wireguard/clients/qr");
     }
 
     private void installSoftware() throws IOException, InterruptedException {
@@ -169,6 +173,8 @@ public class Server {
         run("sudo " + packageManager + " install -y wireguard");
         // 安装 qrencode
         run("sudo " + packageManager + " install -y qrencode");
+        // 安装 curl
+        run("sudo " + packageManager + " install -y curl");
     }
 
     private String getPackageManager() throws IOException, InterruptedException {
@@ -191,4 +197,6 @@ public class Server {
     public String getServerPublicIP() throws IOException, InterruptedException {
         return run("curl -s ifconfig.me");
     }
+
+
 }

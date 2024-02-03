@@ -1,5 +1,6 @@
 package de.luandtong.sailor.service.server;
 
+import de.luandtong.sailor.domian.server.QRCodeGenerator;
 import de.luandtong.sailor.domian.server.Server;
 import de.luandtong.sailor.domian.wg.ClientInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ServerService {
         server.setServerNeedsInitialization(false);
     }
 
-    public void creativeServerInterface( String serverInterfaceName, String address, String listenPort, String ethPort) throws IOException, InterruptedException {
+    public void creativeServerInterface(String serverInterfaceName, String address, String listenPort, String ethPort) throws IOException, InterruptedException {
         List<String> key = generateServerKey(serverInterfaceName);
         UUID keyUUID = UUID.randomUUID();
         String privateKey = key.get(1);
@@ -35,7 +36,7 @@ public class ServerService {
         UUID serverUUID = UUID.randomUUID();
 
         // 创建服务端接口配置文件
-        String conf = serverInterfaceService.getServerInterfaceConfig(serverUUID, keyUUID, address, listenPort, ethPort, privateKey);
+        String conf = serverInterfaceService.getServerInterfaceConfig(serverInterfaceName, serverUUID, keyUUID, address, listenPort, ethPort, privateKey);
         // 保存到数据库
         serverInterfaceService.save(serverUUID, serverInterfaceName, keyUUID, address, listenPort, ethPort);
         // 写入配置文件
@@ -50,7 +51,7 @@ public class ServerService {
     }
 
 
-    public void creativeClientInterface(String selectedInterface, String clientName) throws IOException, InterruptedException {
+    public void creativeClientInterface(String selectedInterface, String clientName) throws Exception {
         List<String> key = generateClientKey(clientName);
         UUID keyUUID = UUID.randomUUID();
         String privateKey = key.get(1);
@@ -75,6 +76,7 @@ public class ServerService {
         // 写入配置文件
         this.writeNewClientConfigFile(clientName, conf);
         this.appendServerConfigFile(selectedInterface, clientName, key.get(0), address);
+        this.generateQRCodeImage(conf,clientName);
 
         server.restartServer(selectedInterface);
     }
@@ -83,13 +85,16 @@ public class ServerService {
         server.writeNewConfigFile(false, interfaceName, conf);
     }
 
+    private void generateQRCodeImage(String conf, String fileName) throws Exception {
+        QRCodeGenerator.generateQRCodeImage(conf, fileName);
+    }
     public void appendServerConfigFile(String serverName, String clientName, String clientPublicKey, String clientAddress) throws IOException, InterruptedException {
         server.appendServerConfigFile(serverName, clientName, clientPublicKey, clientAddress);
     }
 
 
-        private String getANewAddress(String selectedInterface) {
-        return serverInterfaceService.getSubnetz(serverInterfaceService.findServerInterfaceByServername(selectedInterface)) + "." +this.getNewClientAddress(selectedInterface);
+    private String getANewAddress(String selectedInterface) {
+        return serverInterfaceService.getSubnetz(serverInterfaceService.findServerInterfaceByServername(selectedInterface)) + "." + this.getNewClientAddress(selectedInterface);
     }
 
     private String getNewClientAddress(String selectedInterface) {
@@ -164,6 +169,6 @@ public class ServerService {
     }
 
     public String getDownloadLinkByClientName(String clientName) {
-
+        return "/download/" + clientName;
     }
 }

@@ -81,7 +81,7 @@ public class MainFunctionController {
     }
 
     @GetMapping("/home")
-    public String home(@RequestParam(required = false) String selectedInterface, Model model) {
+    public String home(@RequestParam(required = false) String selectedInterface, Model model) throws IOException, InterruptedException {
         System.out.println(selectedInterface);
         if (selectedInterface != null && !selectedInterface.isEmpty()) {
             // 假设 serverService 有方法来获取ServerInterface的详细信息
@@ -92,17 +92,12 @@ public class MainFunctionController {
             model.addAttribute("listenPort", serverService.getServerInterfaceListenPort(selectedInterface));
             model.addAttribute("ethPort", serverService.getServerInterfaceEthPort(selectedInterface));
 
+            serverService.startServer(selectedInterface);
+
             List<String> clientNames = serverService.findClientInterfaceNamesByServerInterfaceName(selectedInterface);
             System.out.println(clientNames);
 
-            // 创建一个Map来存储每个客户端名称和对应的下载
-            Map<String, String> clientDownloadLinks = new HashMap<>();
-            for (String clientName : clientNames) {
-                String downloadLink = serverService.getDownloadLinkByClientName(clientName); // 假设这个方法返回客户端的下载链接
-                clientDownloadLinks.put(clientName, downloadLink);
-            }
 
-            model.addAttribute("clientDownloadLinks", clientDownloadLinks);
 
             model.addAttribute("clients", clientNames);
         }
@@ -110,7 +105,7 @@ public class MainFunctionController {
     }
 
     @PostMapping("/addClientInterface")
-    public String addClientInterface(@RequestParam String clientName, @RequestParam String selectedInterface, RedirectAttributes redirectAttributes) throws IOException, InterruptedException {
+    public String addClientInterface(@RequestParam String clientName, @RequestParam String selectedInterface, RedirectAttributes redirectAttributes) throws Exception {
 
         if (clientName != null && !isInputValid(clientName)) {
             // 如果输入无效，添加错误消息到重定向属性
@@ -137,4 +132,5 @@ public class MainFunctionController {
         String regex = "^[a-zA-Z0-9_-]+$";
         return Pattern.matches(regex, input);
     }
+
 }

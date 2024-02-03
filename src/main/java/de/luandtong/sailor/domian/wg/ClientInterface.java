@@ -38,11 +38,11 @@ public class ClientInterface implements WGInterface {
                 "[Interface]\n" +
                 "PrivateKey = " + privateKey + "\n" +
                 "Address = " + this.address + "\n" +
-                "DNS = " + this.dns + "\n" +
+                "DNS = " + this.dns + "\n\n" +
 
                 "[Peer]\n" +
                 "PublicKey = " + publicKey + "\n" +
-                "Endpoint = " + publicIP + listenPort + "\n" +
+                "Endpoint = " + publicIP + ":" + listenPort + "\n" +
                 "AllowedIPs = 0.0.0.0/0\n" +
                 "PersistentKeepalive = " + this.persistentKeepalive;
     }

@@ -50,14 +50,11 @@
             <h2>已添加的ClientInterface</h2>
             <ul>
                 <li th:each="client : ${clients}">
-                    <!-- 按钮容器 -->
                     <div class="client-button-container">
                         <!-- 动态生成的下载按钮 -->
-                        <a th:href="downloadLink2.jpg" download="downloadLink2.jpg" th:text="${client}"
-                           class="client-button"></a>
-
+                        <a th:href="@{/download/{clientName}(clientName=${client})}" th:download="${client} + .conf" th:text="${client}" class="client-button"></a>
                         <!-- 固定的下载按钮 2 -->
-                        <a href="downloadLink2.jpg" download="ClientImage2.jpg" class="client-button">下载2</a>
+                        <a th:href="@{/download/qr/{clientName}(clientName=${client})}" download="${client} + .png" class="client-button">QR Code</a>
                         <!-- 删除按钮 -->
                         <button type="button" class="client-button delete-button">删除</button>
                     </div>

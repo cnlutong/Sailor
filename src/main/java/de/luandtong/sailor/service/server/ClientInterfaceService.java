@@ -5,10 +5,8 @@ import de.luandtong.sailor.repository.wg.ClientInterfaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class ClientInterfaceService {
@@ -32,7 +30,6 @@ public class ClientInterfaceService {
         return clientInterface.creativeInterfaceConfFile(privateKey, publicKey, publicIP, listenPort);
 
     }
-
 
 
     List<String> findClientInterfaceNamesByServerInterfaceUUID(UUID serverInterfaceUUID) {
@@ -67,7 +64,6 @@ public class ClientInterfaceService {
                 .max()
                 .orElse(1);
     }
-
 
 
 }
