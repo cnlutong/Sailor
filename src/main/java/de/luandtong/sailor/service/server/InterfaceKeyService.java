@@ -5,8 +5,6 @@ import de.luandtong.sailor.repository.wg.InterfaceKeyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 public class InterfaceKeyService {
 
@@ -18,7 +16,7 @@ public class InterfaceKeyService {
         interfaceKeyRepository.save(uuid, publicKey, privateKey);
     }
 
-    public InterfaceKey findWGInterfaceKeyByUuid(UUID uuid) {
+    public InterfaceKey findWGInterfaceKeyByUuid(java.util.UUID uuid) {
         return interfaceKeyRepository.findWGInterfaceKeyByUuid(uuid);
     }
 
