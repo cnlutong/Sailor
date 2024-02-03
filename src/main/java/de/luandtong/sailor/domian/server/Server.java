@@ -191,4 +191,6 @@ public class Server {
     public String getServerPublicIP() throws IOException, InterruptedException {
         return run("curl -s ifconfig.me");
     }
+
+
 }

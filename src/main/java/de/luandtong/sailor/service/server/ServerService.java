@@ -27,7 +27,7 @@ public class ServerService {
         server.setServerNeedsInitialization(false);
     }
 
-    public void creativeServerInterface( String serverInterfaceName, String address, String listenPort, String ethPort) throws IOException, InterruptedException {
+    public void creativeServerInterface(String serverInterfaceName, String address, String listenPort, String ethPort) throws IOException, InterruptedException {
         List<String> key = generateServerKey(serverInterfaceName);
         UUID keyUUID = UUID.randomUUID();
         String privateKey = key.get(1);
@@ -88,8 +88,8 @@ public class ServerService {
     }
 
 
-        private String getANewAddress(String selectedInterface) {
-        return serverInterfaceService.getSubnetz(serverInterfaceService.findServerInterfaceByServername(selectedInterface)) + "." +this.getNewClientAddress(selectedInterface);
+    private String getANewAddress(String selectedInterface) {
+        return serverInterfaceService.getSubnetz(serverInterfaceService.findServerInterfaceByServername(selectedInterface)) + "." + this.getNewClientAddress(selectedInterface);
     }
 
     private String getNewClientAddress(String selectedInterface) {
@@ -164,6 +164,6 @@ public class ServerService {
     }
 
     public String getDownloadLinkByClientName(String clientName) {
-
+        return "/download/" + clientName;
     }
 }
