@@ -24,7 +24,7 @@ public class FileDownloadController {
     @GetMapping("/download/{clientName}")
     public ResponseEntity<Resource> downloadConfigFile(@PathVariable String clientName) {
         try {
-            Path filePath = baseDir.resolve("client_" + clientName + ".conf").normalize();
+            Path filePath = baseDir.resolve(clientName + ".conf").normalize();
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists() && resource.isReadable()) {
                 System.out.println("resource is exist : " + resource);
@@ -44,7 +44,7 @@ public class FileDownloadController {
     @GetMapping("/download/qr/{clientName}")
     public ResponseEntity<Resource> downloadQRFile(@PathVariable String clientName) {
         try {
-            Path filePath = qrBaseDir.resolve("client_" + clientName + ".png").normalize();
+            Path filePath = qrBaseDir.resolve(clientName + ".png").normalize();
             System.out.println("QR: " +filePath);
             Resource resource = new UrlResource(filePath.toUri());
 

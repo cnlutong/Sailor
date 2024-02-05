@@ -42,7 +42,7 @@ public class Server {
 
     //    启用服务
     public void enableServer(String name) throws IOException, InterruptedException {
-        String serverCong = "server_" + name;
+        String serverCong = name;
         // 启用 WireGuard 服务
         run("sudo systemctl enable wg-quick@" + serverCong);
         System.out.println("sudo systemctl enable wg-quick@" + serverCong);
@@ -50,7 +50,7 @@ public class Server {
 
     //    启动服务
     public void startServer(String name) throws IOException, InterruptedException {
-        String serverCong = "server_" + name;
+        String serverCong =  name;
         // 启动 WireGuard 服务
         run("sudo systemctl start wg-quick@" + serverCong);
         System.out.println("sudo systemctl start wg-quick@" + serverCong);
@@ -58,7 +58,7 @@ public class Server {
 
     //    重启服务
     public void restartServer(String name) throws IOException, InterruptedException {
-        String serverCong = "server_" + name;
+        String serverCong =  name;
         // 重启 WireGuard 服务以应用更改
         run("sudo systemctl restart wg-quick@" + serverCong + ".service");
         System.out.println("sudo systemctl restart wg-quick@" + serverCong + ".service");
@@ -70,7 +70,7 @@ public class Server {
         String publicKey;
 
         if (isServer) {
-            String serverName = "server_" + name;
+            String serverName =name;
 
             run("wg genkey | sudo tee /etc/wireguard/" + serverName + "_private.key | wg pubkey | sudo tee /etc/wireguard/" + serverName + "_public.key");
 
@@ -79,7 +79,7 @@ public class Server {
             publicKey = run("sudo cat /etc/wireguard/" + serverName + "_public.key");
 
         } else {
-            String clientName = "client_" + name;
+            String clientName = name;
 
             // 生成客户端私钥和公钥
             run("wg genkey | sudo tee /etc/wireguard/clients/" + clientName + "_private.key | wg pubkey | sudo tee /etc/wireguard/clients/" + clientName + "_public.key");
@@ -98,7 +98,7 @@ public class Server {
     //    写入新的接口配置文件
     public void writeNewConfigFile(boolean isServer, String name, String conf) throws IOException, InterruptedException {
         if (isServer) {
-            String serverName = "server_" + name;
+            String serverName =  name;
             // 检查 /etc/wireguard/wg0.conf 文件是否存在
             Path wg0ConfPath = Paths.get("/etc/wireguard/" + serverName + ".conf");
             if (Files.exists(wg0ConfPath)) {
@@ -108,7 +108,7 @@ public class Server {
             // 写入 WireGuard 配置文件
             Files.write(Paths.get("/etc/wireguard/" + serverName + ".conf"), conf.getBytes());
         } else {
-            String clientName = "client_" + name;
+            String clientName =  name;
             // 写入客户端 WireGuard 配置文件
             Files.write(Paths.get("/etc/wireguard/clients/" + clientName + ".conf"), conf.getBytes());
         }
@@ -119,7 +119,7 @@ public class Server {
     //    续写配置文件
     public void appendServerConfigFile(String serverName, String clientName, String clientPublicKey, String clientAddress) throws IOException, InterruptedException {
 
-        String serverCong = "server_" + serverName + ".conf";
+        String serverCong =  serverName + ".conf";
         // 更新服务器 WireGuard 配置文件以添加客户端信息
         String peerInfo = "\n" + "#" + clientName + "\n" + "[Peer]\n" + "PublicKey = " + clientPublicKey + "\n" + "AllowedIPs = " + clientAddress + "\n";
 

@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 @Controller
@@ -37,10 +35,13 @@ public class MainFunctionController {
             @RequestParam(defaultValue = "51820") String listenPort,
             @RequestParam(required = false) String ethPort, RedirectAttributes redirectAttributes) throws IOException, InterruptedException {
 
+        System.out.println("serverInterfaceName.length(): " + serverInterfaceName.length());
 
-        if (!isInputValid(serverInterfaceName) && serverInterfaceName != null) {
+
+        if ((!isInputValid(serverInterfaceName) && serverInterfaceName != null) || serverInterfaceName.length() > 15) {
+
             // 如果输入无效，添加错误消息到重定向属性
-            redirectAttributes.addFlashAttribute("errorMessage", "输入包含非法字符。请使用英文字符、数字、下划线或横杠。");
+            redirectAttributes.addFlashAttribute("errorMessage", "输入包含非法字符。请使用英文字符、数字、下划线或横杠或长度大于15个字符。");
             return "redirect:/init";
         }
 
@@ -96,7 +97,6 @@ public class MainFunctionController {
 
             List<String> clientNames = serverService.findClientInterfaceNamesByServerInterfaceName(selectedInterface);
             System.out.println(clientNames);
-
 
 
             model.addAttribute("clients", clientNames);

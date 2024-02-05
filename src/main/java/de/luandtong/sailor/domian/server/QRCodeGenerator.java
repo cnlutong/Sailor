@@ -21,7 +21,7 @@ public class QRCodeGenerator {
         BitMatrix bitMatrix = qrCodeWriter.encode(conf, BarcodeFormat.QR_CODE, width, height);
 
         Path baseDir = Paths.get(filePath);
-        Path path = baseDir.resolve("client_" + fileName + ".png");
+        Path path = baseDir.resolve(fileName + ".png");
 
         // 确保父目录存在
         Files.createDirectories(baseDir);
