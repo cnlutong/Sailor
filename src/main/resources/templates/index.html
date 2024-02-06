@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Sailor</title>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
@@ -23,9 +23,9 @@
         <h2>用户守则</h2>
         <p>这里列出用户在使用过程中需要遵守的规则和指导原则。</p>
     </section>
-    <form th:action="@{/sign-in}" method="get">
+    <form method="get" th:action="@{/sign-in}">
         <div class="button-container">
-            <button type="submit" class="next-button">同意协议并继续</button>
+            <button class="next-button" type="submit">同意协议并继续</button>
         </div>
     </form>
 </main>

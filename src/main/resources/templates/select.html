@@ -2,7 +2,7 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>选择Server Interface</title>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
@@ -13,18 +13,18 @@
 <main>
     <section class="intro">
         <h2>选择Server Interface</h2>
-        <form th:action="@{/home}" method="get" class="form-container">
+        <form class="form-container" method="get" th:action="@{/home}">
             <div class="form-group">
                 <label for="selectedInterface">Server Interface:</label>
-                <select name="selectedInterface" id="selectedInterface">
+                <select id="selectedInterface" name="selectedInterface">
                     <option th:each="interface : ${interfaces}"
-                            th:value="${interface}"
-                            th:text="${interface}">
+                            th:text="${interface}"
+                            th:value="${interface}">
                     </option>
                 </select>
             </div>
             <div class="button-container">
-                <button type="submit" class="next-button">选择</button>
+                <button class="next-button" type="submit">选择</button>
             </div>
         </form>
     </section>

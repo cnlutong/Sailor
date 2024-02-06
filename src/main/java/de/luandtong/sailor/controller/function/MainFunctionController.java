@@ -35,13 +35,15 @@ public class MainFunctionController {
             @RequestParam(defaultValue = "51820") String listenPort,
             @RequestParam(required = false) String ethPort, RedirectAttributes redirectAttributes) throws IOException, InterruptedException {
 
-        System.out.println("serverInterfaceName.length(): " + serverInterfaceName.length());
 
-
-        if ((!isInputValid(serverInterfaceName) && serverInterfaceName != null) || serverInterfaceName.length() > 15) {
+        if ((isInputValid(serverInterfaceName) && serverInterfaceName != null)) {
 
             // 如果输入无效，添加错误消息到重定向属性
             redirectAttributes.addFlashAttribute("errorMessage", "输入包含非法字符。请使用英文字符、数字、下划线或横杠或长度大于15个字符。");
+            if (serverInterfaceName.length() > 15) {
+                redirectAttributes.addFlashAttribute("errorMessage", "接口名称长度不能大于15个字符。");
+
+            }
             return "redirect:/init";
         }
 
@@ -52,7 +54,7 @@ public class MainFunctionController {
         System.out.println("Listen Port: " + listenPort);
         System.out.println("Eth Port: " + (ethPort != null ? ethPort : "未提供，系统将获取默认地址"));
 
-        if (ethPort.isEmpty()) {
+        if (ethPort != null && ethPort.isEmpty()) {
             ethPort = serverService.getDefaultEth();
             System.out.println("get Default ethPort: " + ethPort);
         }
@@ -107,7 +109,7 @@ public class MainFunctionController {
     @PostMapping("/addClientInterface")
     public String addClientInterface(@RequestParam String clientName, @RequestParam String selectedInterface, RedirectAttributes redirectAttributes) throws Exception {
 
-        if (clientName != null && !isInputValid(clientName)) {
+        if (clientName != null && isInputValid(clientName)) {
             // 如果输入无效，添加错误消息到重定向属性
             redirectAttributes.addFlashAttribute("errorMessage", "输入包含非法字符。请使用英文字符、数字、下划线或横杠。");
             return "redirect:/home?selectedInterface=" + selectedInterface;
@@ -130,7 +132,7 @@ public class MainFunctionController {
     public boolean isInputValid(String input) {
         // 正则表达式，允许字母、数字、下划线和横杠
         String regex = "^[a-zA-Z0-9_-]+$";
-        return Pattern.matches(regex, input);
+        return !Pattern.matches(regex, input);
     }
 
 }

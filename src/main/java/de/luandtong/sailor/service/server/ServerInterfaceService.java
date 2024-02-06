@@ -26,7 +26,7 @@ public class ServerInterfaceService {
 
     public String getServerInterfaceConfig(String serverInterfaceName, UUID uuid, UUID interfaceKey, String address, String listenPort, String ethPort, String privateKey) {
         ServerInterface serverInterface = new ServerInterface(uuid, interfaceKey, address, listenPort, ethPort);
-        return serverInterface.creativeInterfaceConfFile( serverInterfaceName, privateKey);
+        return serverInterface.creativeInterfaceConfFile(serverInterfaceName, privateKey);
     }
 
     public void save(UUID uuid, String ServerInterfaceName, UUID WGInterfaceKeyUUID, String address, String listenPort, String ethPort) {

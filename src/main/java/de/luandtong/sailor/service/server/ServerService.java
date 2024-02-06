@@ -76,7 +76,7 @@ public class ServerService {
         // 写入配置文件
         this.writeNewClientConfigFile(clientName, conf);
         this.appendServerConfigFile(selectedInterface, clientName, key.get(0), address);
-        this.generateQRCodeImage(conf,clientName);
+        this.generateQRCodeImage(conf, clientName);
 
         server.restartServer(selectedInterface);
     }
@@ -88,6 +88,7 @@ public class ServerService {
     private void generateQRCodeImage(String conf, String fileName) throws Exception {
         QRCodeGenerator.generateQRCodeImage(conf, fileName);
     }
+
     public void appendServerConfigFile(String serverName, String clientName, String clientPublicKey, String clientAddress) throws IOException, InterruptedException {
         server.appendServerConfigFile(serverName, clientName, clientPublicKey, clientAddress);
     }

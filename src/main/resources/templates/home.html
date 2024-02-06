@@ -2,7 +2,7 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Sailor - 主页</title>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
@@ -11,10 +11,10 @@
     <h1>Sailor</h1>
 </header>
 <!-- 显示操作反馈消息 -->
-<div th:if="${successMessage}" class="alert success">
+<div class="alert success" th:if="${successMessage}">
     <p th:text="${successMessage}"></p>
 </div>
-<div th:if="${errorMessage}" class="alert error">
+<div class="alert error" th:if="${errorMessage}">
     <p th:text="${errorMessage}"></p>
 </div>
 
@@ -36,10 +36,10 @@
 
         <section class="client-interface section-container">
             <h2>管理ClientInterface</h2>
-            <form th:action="@{/addClientInterface}" method="post" class="client-interface-form">
-                <input type="text" name="clientName" placeholder="Client Name" required>
-                <input type="hidden" name="selectedInterface" th:value="${selectedInterface}">
-                <button type="submit" class="next-button">添加ClientInterface</button>
+            <form class="client-interface-form" method="post" th:action="@{/addClientInterface}">
+                <input name="clientName" placeholder="Client Name" required type="text">
+                <input name="selectedInterface" th:value="${selectedInterface}" type="hidden">
+                <button class="next-button" type="submit">添加ClientInterface</button>
             </form>
         </section>
 
@@ -52,11 +52,13 @@
                 <li th:each="client : ${clients}">
                     <div class="client-button-container">
                         <!-- 动态生成的下载按钮 -->
-                        <a th:href="@{/download/{clientName}(clientName=${client})}" th:download="${client} + .conf" th:text="${client}" class="client-button"></a>
+                        <a class="client-button" th:download="${client} + .conf"
+                           th:href="@{/download/{clientName}(clientName=${client})}" th:text="${client}"></a>
                         <!-- 固定的下载按钮 2 -->
-                        <a th:href="@{/download/qr/{clientName}(clientName=${client})}" download="${client} + .png" class="client-button">QR Code</a>
+                        <a class="client-button" download="${client} + .png"
+                           th:href="@{/download/qr/{clientName}(clientName=${client})}">QR Code</a>
                         <!-- 删除按钮 -->
-                        <button type="button" class="client-button delete-button">删除</button>
+                        <button class="client-button delete-button" type="button">删除</button>
                     </div>
                 </li>
             </ul>

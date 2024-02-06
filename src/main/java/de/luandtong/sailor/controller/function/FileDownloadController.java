@@ -45,7 +45,7 @@ public class FileDownloadController {
     public ResponseEntity<Resource> downloadQRFile(@PathVariable String clientName) {
         try {
             Path filePath = qrBaseDir.resolve(clientName + ".png").normalize();
-            System.out.println("QR: " +filePath);
+            System.out.println("QR: " + filePath);
             Resource resource = new UrlResource(filePath.toUri());
 
             if (resource.exists() && resource.isReadable()) {

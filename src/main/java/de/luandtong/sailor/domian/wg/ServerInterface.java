@@ -22,6 +22,14 @@ public class ServerInterface implements WGInterface {
     private String listenPort;
     private String ethPort;
 
+    public ServerInterface(UUID uuid, UUID interfaceKey, String address, String listenPort, String ethPort) {
+        this.uuid = uuid;
+        this.interfaceKey = interfaceKey;
+        this.address = address;
+        this.listenPort = listenPort;
+        this.ethPort = ethPort;
+    }
+
     public String creativeInterfaceConfFile(String serverInterfaceName, String privateKey) {
         // 创建 WireGuard 配置文件内容
         return "[Interface]\n" +
@@ -30,14 +38,6 @@ public class ServerInterface implements WGInterface {
                 "PrivateKey = " + privateKey + "\n" +
                 "PostUp = iptables -A FORWARD -i " + serverInterfaceName + " -j ACCEPT; iptables -t nat -A POSTROUTING -o " + this.ethPort + " -j MASQUERADE" + "\n" +
                 "PostDown = iptables -D FORWARD -i " + serverInterfaceName + " -j ACCEPT; iptables -t nat -D POSTROUTING -o " + this.ethPort + " -j MASQUERADE" + "\n\n";
-    }
-
-    public ServerInterface(UUID uuid, UUID interfaceKey, String address, String listenPort, String ethPort) {
-        this.uuid = uuid;
-        this.interfaceKey = interfaceKey;
-        this.address = address;
-        this.listenPort = listenPort;
-        this.ethPort = ethPort;
     }
 
     public UUID getUuid() {
