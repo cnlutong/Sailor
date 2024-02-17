@@ -21,7 +21,7 @@
         <li><a href="/init" th:href="@{/init}">New server</a></li>
         <li><a href="/about" th:href="@{/about}">About</a></li>
         <li>
-            <form th:action="@{/log-out}" method="post">
+            <form method="post" th:action="@{/log-out}">
                 <input type="submit" value="Log out"/>
             </form>
         </li>
@@ -35,11 +35,12 @@
                 <li th:each="interface : ${interfaces}">
                     <span th:text="${interface}">Interface Name</span>
                     <div class="button-container">
-                        <a th:href="@{/home(selectedInterface=${interface})}" class="button">Next</a>
+                        <a class="button" th:href="@{/home(selectedInterface=${interface})}">Next</a>
                         <!-- 修改后的删除操作的表单，添加onsubmit事件监听 -->
-                        <form th:action="@{/deleteInterface}" method="post" onsubmit="return confirmDelete()" style="display: inline;">
-                            <input type="hidden" name="selectedInterface" th:value="${interface}" />
-                            <input type="submit" value="Delete" class="button"/>
+                        <form method="post" onsubmit="return confirmDelete()" style="display: inline;"
+                              th:action="@{/deleteInterface}">
+                            <input name="selectedInterface" th:value="${interface}" type="hidden"/>
+                            <input class="button" type="submit" value="Delete"/>
                         </form>
                     </div>
                 </li>

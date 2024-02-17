@@ -29,14 +29,13 @@ public class MainFunctionController {
 
     @PostMapping("/init")
     public String submitConfig(
-            @RequestParam(defaultValue = "10.0.0.1") String serverName,
             @RequestParam String serverInterfaceName,
             @RequestParam(defaultValue = "10.0.0.1") String address,
             @RequestParam(defaultValue = "51820") String listenPort,
             @RequestParam(required = false) String ethPort, RedirectAttributes redirectAttributes) throws IOException, InterruptedException {
 
 
-        if(serverInterfaceName == null || serverInterfaceName.isEmpty()){
+        if (serverInterfaceName == null || serverInterfaceName.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorMessage", "The input cannot be empty");
             return "redirect:/init";
         }
@@ -68,21 +67,21 @@ public class MainFunctionController {
 
         System.out.println(serverService.hasServerInterfaceByAddress(address));
 
-        if(!serverService.isValidIPAddress(address)){
+        if (!serverService.isValidIPAddress(address)) {
             redirectAttributes.addFlashAttribute("errorMessage", "Please enter a valid IP address for the server");
             return "redirect:/init";
         }
-        if (!serverService.isPrivateIPAddress(address)){
+        if (!serverService.isPrivateIPAddress(address)) {
             redirectAttributes.addFlashAttribute("errorMessage", "Please use the intranet address for the server");
             return "redirect:/init";
         }
 
-        if (serverService.hasServerInterfaceByAddress(address+"/24")) {
+        if (serverService.hasServerInterfaceByAddress(address + "/24")) {
             redirectAttributes.addFlashAttribute("errorMessage", "The server address is already occupied");
             return "redirect:/init";
         }
 
-        if(serverService.isCommonlyUsedPort(listenPort)){
+        if (serverService.isCommonlyUsedPort(listenPort)) {
             redirectAttributes.addFlashAttribute("errorMessage", "Do not use commonly used ports.");
             return "redirect:/init";
         }
@@ -117,7 +116,7 @@ public class MainFunctionController {
     }
 
     @PostMapping("/deleteInterface")
-    public String deleteInterface(@RequestParam String selectedInterface, RedirectAttributes redirectAttributes) throws IOException, InterruptedException {
+    public String deleteInterface(@RequestParam String selectedInterface) throws IOException, InterruptedException {
         System.out.println("deleteInterface: " + selectedInterface);
 
         serverService.deleteServerInterface(selectedInterface);
@@ -162,12 +161,12 @@ public class MainFunctionController {
 
         int temp = serverService.creativeClientInterface(selectedInterface, selectedInterface + "-" + clientName);
 
-        if(temp == -1){
+        if (temp == -1) {
             redirectAttributes.addFlashAttribute("errorMessage", "No more client addresses available.");
             return "redirect:/home?selectedInterface=" + selectedInterface;
         }
 
-        if(temp == 0){
+        if (temp == 0) {
             redirectAttributes.addFlashAttribute("errorMessage", "A client with the same name already exists.");
             return "redirect:/home?selectedInterface=" + selectedInterface;
         }

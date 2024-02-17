@@ -43,11 +43,11 @@ public class ClientInterfaceRepositoryImpl implements ClientInterfaceRepository 
     @Override
     public void deleteClientInterfaceByClientNameAndServerInterfaceUUID(String clientName, UUID serverInterfaceUUID) {
         System.out.println("clientName: " + clientName);
-        System.out.println("serverInterfaceKeyUUID: "+serverInterfaceUUID);
+        System.out.println("serverInterfaceKeyUUID: " + serverInterfaceUUID);
         clientInterfaceDBRepository.deleteByClientNameAndServerInterfaceUUID(clientName, serverInterfaceUUID);
     }
 
-    public boolean existsByClientName(String clientName){
+    public boolean existsByClientName(String clientName) {
         return clientInterfaceDBRepository.existsByClientName(clientName);
     }
 

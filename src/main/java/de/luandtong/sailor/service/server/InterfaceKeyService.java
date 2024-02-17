@@ -26,7 +26,7 @@ public class InterfaceKeyService {
         return interfaceKeyRepository.findWGInterfaceKeyByUuid(uuid).publicKey();
     }
 
-    public void deleteByUuid(UUID uuid){
+    public void deleteByUuid(UUID uuid) {
         interfaceKeyRepository.deleteByUuid(uuid);
     }
 }

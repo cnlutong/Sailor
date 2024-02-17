@@ -61,7 +61,7 @@ main {
     text-align: center;
 }
 
-.intro{
+.intro {
     margin-bottom: 20px;
 }
 
@@ -115,7 +115,6 @@ h2 {
 .info-section:last-child {
     margin-bottom: 0; /* 确保最后一个部分之后没有额外的间隙 */
 }
-
 
 
 footer {
@@ -185,7 +184,6 @@ footer {
     appearance: none; /* 移除原生样式，为自定义样式做准备 */
     color: #333; /* 文字颜色，与页面文字保持一致 */
 }
-
 
 
 .form-group input[type="text"],
@@ -346,7 +344,6 @@ input[type="text"] {
 .client-button-container .delete-button:hover {
     background-color: #8a3c32; /* 鼠标悬停时的背景颜色 */
 }
-
 
 
 /*Select*/

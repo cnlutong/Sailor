@@ -83,7 +83,6 @@ footer {
 }
 
 
-
 .interface-list {
     max-width: 600px;
     margin: 40px auto;
@@ -140,7 +139,8 @@ footer {
 .interface-list form .button {
     background-color: #a94442; /* 基础背景颜色 */
     color: white; /* 文字颜色 */
-    transition: background-color 0.3s ease; /* 背景颜色变化的过渡效果 */}
+    transition: background-color 0.3s ease; /* 背景颜色变化的过渡效果 */
+}
 
 .interface-list .button:not(:last-child) {
     margin-right: 10px; /* 控制按钮间的间隔 */

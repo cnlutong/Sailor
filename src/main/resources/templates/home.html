@@ -17,7 +17,7 @@
         <li><a href="/about" th:href="@{/about}">About</a></li>
         <li>
             <!-- 注销操作的表单 -->
-            <form th:action="@{/log-out}" method="post">
+            <form method="post" th:action="@{/log-out}">
                 <input type="submit" value="Log out"/>
                 <!-- Thymeleaf自动处理CSRF令牌 -->
             </form>
@@ -72,10 +72,10 @@
                         <a class="client-button" download="${client} + .png"
                            th:href="@{/download/qr/{clientName}(clientName=${client})}">QR Code</a>
                         <!-- 删除按钮 -->
-                        <form th:action="@{/deleteClientInterface}" method="post">
+                        <form method="post" th:action="@{/deleteClientInterface}">
                             <input name="clientName" th:value="${client}" type="hidden"/>
                             <input name="selectedInterface" th:value="${selectedInterface}" type="hidden">
-                            <button type="submit" class="client-button delete-button">delete</button>
+                            <button class="client-button delete-button" type="submit">delete</button>
                         </form>
                     </div>
                 </li>

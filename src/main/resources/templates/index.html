@@ -17,7 +17,7 @@
         <li><a href="/about" th:href="@{/about}">About</a></li>
         <li>
             <!-- 注销操作的表单 -->
-            <form th:action="@{/log-out}" method="post">
+            <form method="post" th:action="@{/log-out}">
                 <input type="submit" value="Log out"/>
                 <!-- Thymeleaf自动处理CSRF令牌 -->
             </form>
@@ -68,7 +68,7 @@
         <p>9.1 The invalidity or unenforceability of any provision of this Agreement shall not affect the validity of
             the remaining provisions.</p>
         <h3>Contact Email: cnlutong@gmail.com</h3>
-        <h2> </h2>
+        <h2></h2>
         <form method="get" th:action="@{/log-in}">
             <div class="button-container">
                 <button class="next-button" type="submit">Agree and continue</button>

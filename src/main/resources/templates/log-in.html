@@ -17,7 +17,7 @@
         <li><a href="/about" th:href="@{/about}">About</a></li>
         <li>
             <!-- 注销操作的表单 -->
-            <form th:action="@{/log-out}" method="post">
+            <form method="post" th:action="@{/log-out}">
                 <input type="submit" value="Log out"/>
                 <!-- Thymeleaf自动处理CSRF令牌 -->
             </form>

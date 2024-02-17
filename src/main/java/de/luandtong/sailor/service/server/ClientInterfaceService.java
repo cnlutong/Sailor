@@ -64,7 +64,7 @@ public class ClientInterfaceService {
 //                .orElse(1);
 //    }
 
-    public int getLastAddressFromClientInterfaces(List<ClientInterface> clientInterfaces){
+    public int getLastAddressFromClientInterfaces(List<ClientInterface> clientInterfaces) {
         Set<Integer> usedLastOctets = clientInterfaces.stream()
                 .map(ClientInterface::getAddress)
                 .map(address -> address.substring(0, address.indexOf('/')))
@@ -88,7 +88,7 @@ public class ClientInterfaceService {
         clientInterfaceRepository.deleteClientInterfaceByClientNameAndServerInterfaceUUID(clientName, serverInterfaceUUID);
     }
 
-    public boolean existsByClientName(String clientName){
+    public boolean existsByClientName(String clientName) {
         return clientInterfaceRepository.existsByClientName(clientName);
     }
 

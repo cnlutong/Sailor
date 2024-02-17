@@ -75,7 +75,6 @@ public class Server {
     }
 
 
-
     //    创建密钥
     public List<String> generateKey(boolean isServer, String name) throws IOException, InterruptedException {
         String privateKey;

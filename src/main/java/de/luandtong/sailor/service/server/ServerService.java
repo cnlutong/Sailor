@@ -55,7 +55,7 @@ public class ServerService {
 
     public int creativeClientInterface(String selectedInterfaceName, String clientName) throws Exception {
 
-        if(clientInterfaceService.existsByClientName(clientName)){
+        if (clientInterfaceService.existsByClientName(clientName)) {
             return 0;
         }
 
@@ -67,7 +67,7 @@ public class ServerService {
 
         int newClientLastAddress = getNewClientAddress(selectedInterfaceName);
 
-        if(newClientLastAddress == -1){
+        if (newClientLastAddress == -1) {
             return -1;
         }
 
@@ -113,7 +113,7 @@ public class ServerService {
     private int getNewClientAddress(String selectedInterface) {
         UUID serverInterfaceUUID = getServerInterfaceUUID(selectedInterface);
         List<ClientInterface> clientInterfaces = clientInterfaceService.findClientInterfacesByServerInterfaceUUID(serverInterfaceUUID);
-        return  clientInterfaceService.getLastAddressFromClientInterfaces(clientInterfaces);
+        return clientInterfaceService.getLastAddressFromClientInterfaces(clientInterfaces);
 //        return String.valueOf(lastAddress + 1);
     }
 
@@ -296,7 +296,7 @@ public class ServerService {
     }
 
     public boolean isCommonlyUsedPort(String listenPort) {
-        int[] commonPorts = { 21, 22, 23, 25, 53, 80, 110, 443, 3306, 6379, 5432, 27017, 8080, 8443 };
+        int[] commonPorts = {21, 22, 23, 25, 53, 80, 110, 443, 3306, 6379, 5432, 27017, 8080, 8443};
         try {
             int port = Integer.parseInt(listenPort);
             if (port < 0 || port > 65535) {

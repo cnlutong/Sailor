@@ -28,15 +28,15 @@ public class ServerInterfaceService {
         return serverInterfaceRepository.hasServerInterfaceByServername(serverInterfaceName);
     }
 
-    public boolean hasServerInterfaceByAddress(String address){
+    public boolean hasServerInterfaceByAddress(String address) {
         return serverInterfaceRepository.hasServerInterfaceByAddress(address);
     }
 
-    public boolean hasServerInterfaceByListenPort(String listenPort){
+    public boolean hasServerInterfaceByListenPort(String listenPort) {
         return serverInterfaceRepository.hasServerInterfaceByListenPort(listenPort);
     }
 
-    public boolean hasServerInterfaceByListenPortAndEthPort(String listenPort, String ethPort){
+    public boolean hasServerInterfaceByListenPortAndEthPort(String listenPort, String ethPort) {
         return serverInterfaceRepository.hasServerInterfaceByListenPortAndEthPort(listenPort, ethPort);
     }
 
