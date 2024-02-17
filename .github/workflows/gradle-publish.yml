@@ -7,7 +7,7 @@
 
 name: Build and Test
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 defaults:
   run:
@@ -29,5 +29,15 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           settings-path: ${{ github.workspace }}
+
+      - name: Set executable permission for Gradle
+        run: chmod +x ./gradlew
+
       - name: Build with Gradle
         run: ./gradlew build
+
+      - name: Publish to GitHub Packages
+        run: ./gradlew publish
+        env:
+          USERNAME: ${{ github.actor }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
