@@ -16,7 +16,7 @@ java -version
 # 2. 下载最新的发行版 JAR 从 GitHub
 echo "Downloading latest release from GitHub..."
 LATEST_RELEASE=$(curl -s https://api.github.com/repos/cnlutong/Sailor/releases/latest | grep "browser_download_url.*jar" | cut -d '"' -f 4)
-wget -O sailor_app.jar $LATEST_RELEASE
+curl -L $LATEST_RELEASE -o sailor_app.jar
 
 # 3. 安装 Docker
 echo "Installing Docker..."

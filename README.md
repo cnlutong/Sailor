@@ -20,4 +20,14 @@ Sailor是一个基于Spring Boot构建的WireGuard VPN管理工具，支持在Ub
 
 - 可以访问互联网
 - 拥有公网IP或在已经配置好端口转发的内网中
-- Ubuntu 20.04 或更新版本
+- Ubuntu 20.04/Debian 12 或更新版本
+
+### **安装步骤**
+
+一键部署脚本
+
+```bash
+curl -sSL https://raw.githubusercontent.com/cnlutong/Sailor/master/deploy.sh | sudo bash
+```
+
+完毕后，访问`http://服务器地址:8080`开始使用Sailor进行VPN管理。
