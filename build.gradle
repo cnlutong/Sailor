@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'de.luandtong'
-version = 'v1.12 beta'
+version = 'v0.9'
 
 java {
     sourceCompatibility = '21'
