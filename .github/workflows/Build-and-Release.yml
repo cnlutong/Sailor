@@ -1,9 +1,9 @@
 name: Build, Test, and Release
 
-on: [ push, pull_request ]
-#  push:
-#    tags:
-#      - 'v*'
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build-and-release:
