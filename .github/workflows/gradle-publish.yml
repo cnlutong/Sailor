@@ -11,7 +11,7 @@ on: [push, pull_request]
 
 defaults:
   run:
-    working-directory: ./sailor
+    working-directory: ./
 
 jobs:
   build:
