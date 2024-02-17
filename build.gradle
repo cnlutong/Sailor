@@ -1,3 +1,4 @@
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.0'
@@ -5,7 +6,7 @@ plugins {
 }
 
 group = 'de.luandtong'
-version = '0.0.1-SNAPSHOT'
+version = 'v1.12 beta'
 
 java {
     sourceCompatibility = '21'
@@ -37,4 +38,11 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+// 定义一个任务来打印版本信息
+task printVersion {
+    doLast {
+        println version
+    }
 }
