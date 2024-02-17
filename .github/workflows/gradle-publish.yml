@@ -27,7 +27,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '21'
+          distribution: 'temurin'
           settings-path: ${{ github.workspace }}
-
+  distribution
       - name: Build with Gradle
         run: ./gradlew build
