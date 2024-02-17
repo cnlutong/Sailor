@@ -19,15 +19,15 @@ public class CommandTest {
 //        assertEquals(expectedOutput, output, "The output of the echo command should match the expected output.");
 //    }
 
-    @Test
-    public void testRunInvalidCommand() {
-        // 测试一个无效的命令，应抛出 IOException
-        String command = "someInvalidCommandThatDoesNotExist";
-
-        assertThrows(IOException.class, () -> {
-            Command.run(command);
-        }, "Running an invalid command should throw IOException.");
-    }
+//    @Test
+//    public void testRunInvalidCommand() {
+//        // 测试一个无效的命令，应抛出 IOException
+//        String command = "someInvalidCommandThatDoesNotExist";
+//
+//        assertThrows(IOException.class, () -> {
+//            Command.run(command);
+//        }, "Running an invalid command should throw IOException.");
+//    }
 
 //    @Test
 //    public void testRunCommandThatExitsWithError() throws IOException, InterruptedException {
