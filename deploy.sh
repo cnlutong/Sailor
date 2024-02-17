@@ -36,7 +36,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 # 5. 下载 docker-compose.yml 文件
 echo "Downloading docker-compose.yml..."
-curl -sSL -o docker-compose.yml https://raw.githubusercontent.com/cnlutong/Sailor/main/src/docker-compose.yml
+curl -sSL -o docker-compose.yml https://raw.githubusercontent.com/cnlutong/Sailor/master/docker-compose.yml
 
 # 6. 启动 MariaDB 容器
 echo "Starting MariaDB container with Docker Compose..."
