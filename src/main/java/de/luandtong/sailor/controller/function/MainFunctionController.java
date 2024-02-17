@@ -36,32 +36,65 @@ public class MainFunctionController {
             @RequestParam(required = false) String ethPort, RedirectAttributes redirectAttributes) throws IOException, InterruptedException {
 
 
-        if ((isInputValid(serverInterfaceName) && serverInterfaceName != null)) {
-
-            // 如果输入无效，添加错误消息到重定向属性
-            redirectAttributes.addFlashAttribute("errorMessage", "输入包含非法字符。请使用英文字符、数字、下划线或横杠或长度大于15个字符。");
-            if (serverInterfaceName.length() > 15) {
-                redirectAttributes.addFlashAttribute("errorMessage", "接口名称长度不能大于15个字符。");
-
-            }
+        if(serverInterfaceName == null || serverInterfaceName.isEmpty()){
+            redirectAttributes.addFlashAttribute("errorMessage", "The input cannot be empty");
+            return "redirect:/init";
+        }
+        if (isInputValid(serverInterfaceName)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The input contains illegal characters. Please use only English characters, numbers, underscores or dashes.");
             return "redirect:/init";
         }
 
+        if (serverInterfaceName.length() > 15) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The interface name cannot be longer than 15 characters.");
+            return "redirect:/init";
+        }
 
         // 输出接收到的数据
         System.out.println("Server Interface Name: " + serverInterfaceName);
         System.out.println("Address: " + address + "/24");
         System.out.println("Listen Port: " + listenPort);
-        System.out.println("Eth Port: " + (ethPort != null ? ethPort : "未提供，系统将获取默认地址"));
+        System.out.println("Eth Port: " + (ethPort != null ? ethPort : "If not provided, the system will obtain the default address"));
 
         if (ethPort != null && ethPort.isEmpty()) {
             ethPort = serverService.getDefaultEth();
             System.out.println("get Default ethPort: " + ethPort);
         }
 
+        if (serverService.hasServerInterfaceByServername(serverInterfaceName)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The server interface already exists.");
+            return "redirect:/init";
+        }
+
+        System.out.println(serverService.hasServerInterfaceByAddress(address));
+
+        if(!serverService.isValidIPAddress(address)){
+            redirectAttributes.addFlashAttribute("errorMessage", "Please enter a valid IP address for the server");
+            return "redirect:/init";
+        }
+        if (!serverService.isPrivateIPAddress(address)){
+            redirectAttributes.addFlashAttribute("errorMessage", "Please use the intranet address for the server");
+            return "redirect:/init";
+        }
+
+        if (serverService.hasServerInterfaceByAddress(address+"/24")) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The server address is already occupied");
+            return "redirect:/init";
+        }
+
+        if(serverService.isCommonlyUsedPort(listenPort)){
+            redirectAttributes.addFlashAttribute("errorMessage", "Do not use commonly used ports.");
+            return "redirect:/init";
+        }
+
+        if (serverService.hasServerInterfaceByListenPortAndEthPort(listenPort, ethPort)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The port of this network interface is already occupied.");
+            return "redirect:/init";
+        }
+
+
         serverService.creativeServerInterface(serverInterfaceName, address + "/24", listenPort, ethPort);
-        // 配置保存后，重定向到另一个页面或返回信息
-        return "redirect:/select"; // 修改为您的目标页面
+        return "redirect:/select";
     }
 
     @GetMapping("/select")
@@ -83,9 +116,18 @@ public class MainFunctionController {
         return "redirect:/home?selectedInterface=" + selectedInterface;
     }
 
+    @PostMapping("/deleteInterface")
+    public String deleteInterface(@RequestParam String selectedInterface, RedirectAttributes redirectAttributes) throws IOException, InterruptedException {
+        System.out.println("deleteInterface: " + selectedInterface);
+
+        serverService.deleteServerInterface(selectedInterface);
+        return "redirect:/select"; // 删除后重定向回接口选择页面
+    }
+
+
     @GetMapping("/home")
     public String home(@RequestParam(required = false) String selectedInterface, Model model) throws IOException, InterruptedException {
-        System.out.println(selectedInterface);
+        System.out.println("Home selected Interface :  " + selectedInterface);
         if (selectedInterface != null && !selectedInterface.isEmpty()) {
             // 假设 serverService 有方法来获取ServerInterface的详细信息
             model.addAttribute("selectedInterface", selectedInterface);
@@ -98,8 +140,7 @@ public class MainFunctionController {
             serverService.startServer(selectedInterface);
 
             List<String> clientNames = serverService.findClientInterfaceNamesByServerInterfaceName(selectedInterface);
-            System.out.println(clientNames);
-
+            System.out.println("Display all ClientInterfaces form this ServerInterface: " + clientNames);
 
             model.addAttribute("clients", clientNames);
         }
@@ -111,21 +152,37 @@ public class MainFunctionController {
 
         if (clientName != null && isInputValid(clientName)) {
             // 如果输入无效，添加错误消息到重定向属性
-            redirectAttributes.addFlashAttribute("errorMessage", "输入包含非法字符。请使用英文字符、数字、下划线或横杠。");
+            redirectAttributes.addFlashAttribute("errorMessage", "The input contains illegal characters. Please use only English characters, numbers, underscores or dashes.");
             return "redirect:/home?selectedInterface=" + selectedInterface;
         }
-
 
         System.out.println("Post selectedInterface: " + selectedInterface);
         System.out.println("Post clientName: " + clientName);
         System.out.println("clientName: " + selectedInterface + "-" + clientName);
 
-        serverService.creativeClientInterface(selectedInterface, selectedInterface + "-" + clientName);
+        int temp = serverService.creativeClientInterface(selectedInterface, selectedInterface + "-" + clientName);
+
+        if(temp == -1){
+            redirectAttributes.addFlashAttribute("errorMessage", "No more client addresses available.");
+            return "redirect:/home?selectedInterface=" + selectedInterface;
+        }
+
+        if(temp == 0){
+            redirectAttributes.addFlashAttribute("errorMessage", "A client with the same name already exists.");
+            return "redirect:/home?selectedInterface=" + selectedInterface;
+        }
 
         // 添加操作成功的反馈消息
-        redirectAttributes.addFlashAttribute("successMessage", "ClientInterface 已成功添加");
+        redirectAttributes.addFlashAttribute("successMessage", "Client has been added successfully");
 
         // 重定向到主页
+        return "redirect:/home?selectedInterface=" + selectedInterface;
+    }
+
+    @PostMapping("/deleteClientInterface")
+    public String deleteClientInterface(@RequestParam("clientName") String clientName, @RequestParam String selectedInterface) throws IOException, InterruptedException {
+        System.out.println("Delete client interface: " + clientName);
+        serverService.deleteClientInterface(clientName, selectedInterface);
         return "redirect:/home?selectedInterface=" + selectedInterface;
     }
 

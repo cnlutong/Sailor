@@ -10,24 +10,71 @@
 <header>
     <h1>Sailor</h1>
 </header>
+<nav class="menu">
+    <ul>
+        <li><a href="/select" th:href="@{/select}">Servers</a></li>
+        <li><a href="/init" th:href="@{/init}">New server</a></li>
+        <li><a href="/about" th:href="@{/about}">About</a></li>
+        <li>
+            <!-- 注销操作的表单 -->
+            <form th:action="@{/log-out}" method="post">
+                <input type="submit" value="Log out"/>
+                <!-- Thymeleaf自动处理CSRF令牌 -->
+            </form>
+        </li>
+    </ul>
+</nav>
 <main>
     <section class="intro">
-        <h2>软件介绍</h2>
-        <p>这里是关于 Sailor 软件的介绍，可以包含软件的主要功能、特点等。</p>
+        <h1>Sailor</h1>
     </section>
     <section class="rules">
-        <h2>用户守则</h2>
-        <p>这里列出用户在使用 Sailor 时需要遵守的规则和指导原则。</p>
+        <h2>User Agreement</h2>
+        <p>Welcome to Sailor software ("Sailor"). Developed by cnlutong ("Developer"), Sailor offers an interface for
+            users to conveniently create and manage WireGuard VPN services and clients. Before using Sailor, please read
+            and agree to this End-User License Agreement ("Agreement"). By installing, copying, downloading, or
+            otherwise using Sailor, you agree to comply with the terms and conditions of this Agreement.</p>
+        <h3>License Scope</h3>
+        <p>2.1 Sailor is released under the MIT license. Within the scope permitted by this license, you are authorized
+            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of Sailor.</p>
+        <p>2.2 This Agreement grants you a non-exclusive, non-transferable right to use. You may use Sailor for
+            commercial purposes, subject to the terms of this Agreement.</p>
+        <h3>User Obligations</h3>
+        <p>3.1 You agree not to use Sailor for any illegal purposes, including but not limited to infringing
+            intellectual property rights, spreading malicious code, or illegally entering others' networks or
+            systems.</p>
+        <p>3.2 You are responsible for maintaining the security of your system using Sailor. The Developer is not liable
+            for any data loss or system damage directly or indirectly caused by your actions.</p>
+        <p>3.3 When using Sailor, you must follow all applicable laws, regulations, and netiquette.</p>
+        <h3>Disclaimer</h3>
+        <p>4.1 Sailor is provided "as is", and the Developer makes no warranties, express or implied, regarding the
+            functionality, stability, or suitability of Sailor.</p>
+        <p>4.2 The Developer is not responsible for any direct, indirect, incidental, special, consequential, or
+            punitive damages arising from the use of Sailor, including but not limited to loss of profits, data loss, or
+            business interruption.</p>
+        <h3>Copyright Statement</h3>
+        <p>5.1 The copyright of Sailor and all related documentation belongs to cnlutong. Using Sailor does not imply a
+            transfer or license of the related intellectual property rights.</p>
+        <h3>Termination</h3>
+        <p>6.1 If you violate the terms of this Agreement, the Developer reserves the right to terminate this Agreement
+            immediately and require you to cease using Sailor.</p>
+        <h3>Applicable Law and Dispute Resolution</h3>
+        <p>7.1 Any dispute arising from this Agreement shall first be resolved through friendly negotiation; if
+            negotiation fails, either party may bring a lawsuit in the court of the Developer's location.</p>
+        <h3>Amendments and Updates</h3>
+        <p>8.1 The Developer reserves the right to modify the terms of this Agreement at any time. Any modifications
+            will be announced in Sailor releases or through other methods designated by the Developer.</p>
+        <h3>Miscellaneous</h3>
+        <p>9.1 The invalidity or unenforceability of any provision of this Agreement shall not affect the validity of
+            the remaining provisions.</p>
+        <h3>Contact Email: cnlutong@gmail.com</h3>
+        <h2> </h2>
+        <form method="get" th:action="@{/log-in}">
+            <div class="button-container">
+                <button class="next-button" type="submit">Agree and continue</button>
+            </div>
+        </form>
     </section>
-    <section class="rules">
-        <h2>用户守则</h2>
-        <p>这里列出用户在使用过程中需要遵守的规则和指导原则。</p>
-    </section>
-    <form method="get" th:action="@{/sign-in}">
-        <div class="button-container">
-            <button class="next-button" type="submit">同意协议并继续</button>
-        </div>
-    </form>
 </main>
 <footer>
     <p>&copy; 2023 Sailor. All rights reserved.</p>

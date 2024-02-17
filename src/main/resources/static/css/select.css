@@ -1,0 +1,158 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* 浅灰色背景 */
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    overflow: hidden;
+    background-color: #fff; /* 白色内容区域背景 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 轻微阴影效果 */
+}
+
+header {
+    background: #006AB3; /* 指定的蓝色 */
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2em;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    background: #006AB3; /* 使用和header一样的背景色 */
+}
+
+.menu li {
+    display: inline-block;
+    margin-right: 20px; /* 调整菜单项之间的间距 */
+}
+
+.menu li:last-child {
+    margin-right: 0;
+}
+
+.menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px; /* 调整菜单项的内边距，使其更易点击 */
+}
+
+.menu a:hover {
+    background-color: #005092; /* 鼠标悬停时的背景颜色变化 */
+}
+
+footer {
+    background: #006AB3; /* 指定的蓝色 */
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+/*特殊效果*/
+
+
+.intro {
+    max-width: 800px; /* 根据需要调整最大宽度 */
+    margin: 0 auto; /* 上下保持默认外边距，左右自动以实现水平居中 */
+    text-align: center; /* 文本居中对齐 */
+    padding: 20px; /* 根据需要调整内边距，增加一些空间 */
+}
+
+.intro h2 {
+    margin: 0; /* 移除默认的外边距以确保标题紧凑 */
+    padding: 10px 0; /* 根据需要调整内边距 */
+    color: #006AB3; /* 维持您的颜色方案，根据需要调整 */
+}
+
+
+
+.interface-list {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.interface-list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.interface-list li {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    border: 1px solid #d0d7de;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.interface-list span {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 修改按钮容器以实现按钮右对齐 */
+.interface-list li {
+    justify-content: space-between; /* 已存在，确保内容分布 */
+}
+
+/* 按钮样式统一 */
+.interface-list .button, .interface-list form .button {
+    background-color: #006AB3; /* Next按钮颜色 */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px; /* 圆角矩形样式 */
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+    font-size: 1em;
+    text-align: center;
+    width: 120px; /* 设置固定宽度以确保按钮宽度一致 */
+    text-decoration: none; /* 去除下划线 */
+}
+
+
+.interface-list form .button {
+    background-color: #a94442; /* 基础背景颜色 */
+    color: white; /* 文字颜色 */
+    transition: background-color 0.3s ease; /* 背景颜色变化的过渡效果 */}
+
+.interface-list .button:not(:last-child) {
+    margin-right: 10px; /* 控制按钮间的间隔 */
+}
+
+.interface-list .button:hover, .interface-list form .button:hover {
+    opacity: 0.8;
+}
+
+/* 新增样式：按钮组容器 */
+.interface-list .button-container {
+    display: flex;
+    justify-content: flex-end; /* 按钮组靠右对齐 */
+    gap: 10px; /* 控制按钮之间的间隔 */
+}

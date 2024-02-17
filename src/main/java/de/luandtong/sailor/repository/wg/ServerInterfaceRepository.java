@@ -19,4 +19,13 @@ public interface ServerInterfaceRepository {
 
     UUID findServerInterfaceKeyUUIDByInterfaceName(String serverInterfaceName);
 
+    boolean hasServerInterfaceByServername(String serverInterfaceName);
+
+    boolean hasServerInterfaceByAddress(String address);
+
+    boolean hasServerInterfaceByListenPort(String listenPort);
+
+    boolean hasServerInterfaceByListenPortAndEthPort(String listenPort, String ethPort);
+
+    void deleteServerInterface(String selectedInterfaceName);
 }

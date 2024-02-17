@@ -3,30 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>选择Server Interface</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <title>Sailor - Servers</title>
+    <link rel="stylesheet" th:href="@{/css/select.css}"/>
+    <script>
+        function confirmDelete() {
+            return confirm('WARNING: You are about to delete this interface. This action is IRREVERSIBLE. Are you sure you want to proceed?');
+        }
+    </script>
 </head>
 <body>
 <header>
     <h1>Sailor</h1>
 </header>
+<nav class="menu">
+    <ul>
+        <li><a href="/select" th:href="@{/select}">Servers</a></li>
+        <li><a href="/init" th:href="@{/init}">New server</a></li>
+        <li><a href="/about" th:href="@{/about}">About</a></li>
+        <li>
+            <form th:action="@{/log-out}" method="post">
+                <input type="submit" value="Log out"/>
+            </form>
+        </li>
+    </ul>
+</nav>
 <main>
     <section class="intro">
-        <h2>选择Server Interface</h2>
-        <form class="form-container" method="get" th:action="@{/home}">
-            <div class="form-group">
-                <label for="selectedInterface">Server Interface:</label>
-                <select id="selectedInterface" name="selectedInterface">
-                    <option th:each="interface : ${interfaces}"
-                            th:text="${interface}"
-                            th:value="${interface}">
-                    </option>
-                </select>
-            </div>
-            <div class="button-container">
-                <button class="next-button" type="submit">选择</button>
-            </div>
-        </form>
+        <h2>Please select the WireGuard VPN Service (Server interface)</h2>
+        <div class="interface-list">
+            <ul>
+                <li th:each="interface : ${interfaces}">
+                    <span th:text="${interface}">Interface Name</span>
+                    <div class="button-container">
+                        <a th:href="@{/home(selectedInterface=${interface})}" class="button">Next</a>
+                        <!-- 修改后的删除操作的表单，添加onsubmit事件监听 -->
+                        <form th:action="@{/deleteInterface}" method="post" onsubmit="return confirmDelete()" style="display: inline;">
+                            <input type="hidden" name="selectedInterface" th:value="${interface}" />
+                            <input type="submit" value="Delete" class="button"/>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </section>
 </main>
 <footer>

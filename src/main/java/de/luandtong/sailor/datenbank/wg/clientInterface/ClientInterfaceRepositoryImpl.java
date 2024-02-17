@@ -40,4 +40,15 @@ public class ClientInterfaceRepositoryImpl implements ClientInterfaceRepository 
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteClientInterfaceByClientNameAndServerInterfaceUUID(String clientName, UUID serverInterfaceUUID) {
+        System.out.println("clientName: " + clientName);
+        System.out.println("serverInterfaceKeyUUID: "+serverInterfaceUUID);
+        clientInterfaceDBRepository.deleteByClientNameAndServerInterfaceUUID(clientName, serverInterfaceUUID);
+    }
+
+    public boolean existsByClientName(String clientName){
+        return clientInterfaceDBRepository.existsByClientName(clientName);
+    }
+
 }

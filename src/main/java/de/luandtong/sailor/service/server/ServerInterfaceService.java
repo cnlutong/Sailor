@@ -24,6 +24,22 @@ public class ServerInterfaceService {
         return serverInterfaceRepository.hasServerInterface();
     }
 
+    public boolean hasServerInterfaceByServername(String serverInterfaceName) {
+        return serverInterfaceRepository.hasServerInterfaceByServername(serverInterfaceName);
+    }
+
+    public boolean hasServerInterfaceByAddress(String address){
+        return serverInterfaceRepository.hasServerInterfaceByAddress(address);
+    }
+
+    public boolean hasServerInterfaceByListenPort(String listenPort){
+        return serverInterfaceRepository.hasServerInterfaceByListenPort(listenPort);
+    }
+
+    public boolean hasServerInterfaceByListenPortAndEthPort(String listenPort, String ethPort){
+        return serverInterfaceRepository.hasServerInterfaceByListenPortAndEthPort(listenPort, ethPort);
+    }
+
     public String getServerInterfaceConfig(String serverInterfaceName, UUID uuid, UUID interfaceKey, String address, String listenPort, String ethPort, String privateKey) {
         ServerInterface serverInterface = new ServerInterface(uuid, interfaceKey, address, listenPort, ethPort);
         return serverInterface.creativeInterfaceConfFile(serverInterfaceName, privateKey);
@@ -61,4 +77,7 @@ public class ServerInterfaceService {
     }
 
 
+    public void deleteServerInterface(String selectedInterfaceName) {
+        serverInterfaceRepository.deleteServerInterface(selectedInterfaceName);
+    }
 }

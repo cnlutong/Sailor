@@ -5,6 +5,8 @@ import de.luandtong.sailor.repository.wg.InterfaceKeyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
 public class InterfaceKeyRepositoryImpl implements InterfaceKeyRepository {
     @Autowired
@@ -19,5 +21,10 @@ public class InterfaceKeyRepositoryImpl implements InterfaceKeyRepository {
     @Override
     public InterfaceKey findWGInterfaceKeyByUuid(java.util.UUID uuid) {
         return interfaceKeyDBRepository.findInterfaceKeyDTOByUuid(uuid).toInterfaceKey();
+    }
+
+    @Override
+    public void deleteByUuid(UUID uuid) {
+        interfaceKeyDBRepository.deleteByUuid(uuid);
     }
 }

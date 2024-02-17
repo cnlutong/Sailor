@@ -27,18 +27,96 @@ header h1 {
     font-size: 2em;
 }
 
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    background: #006AB3; /* 使用和header一样的背景色 */
+}
+
+.menu li {
+    display: inline-block;
+    margin-right: 20px; /* 调整菜单项之间的间距 */
+}
+
+.menu li:last-child {
+    margin-right: 0;
+}
+
+.menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px; /* 调整菜单项的内边距，使其更易点击 */
+}
+
+.menu a:hover {
+    background-color: #005092; /* 鼠标悬停时的背景颜色变化 */
+}
+
+
 main {
     padding: 20px;
     text-align: center;
 }
 
-.intro, .rules {
+.intro{
     margin-bottom: 20px;
+}
+
+.rules {
+    background-color: #ffffff; /* 设置背景色为白色以突出显示规则部分 */
+    padding: 20px; /* 添加内边距以确保文本不会紧贴边框 */
+    margin: 20px auto; /* 上下外边距为20px，左右自动，以居中显示 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加轻微阴影效果 */
+    border-radius: 5px; /* 轻微圆角以提高美观 */
+    max-width: 800px; /* 限制最大宽度以提高阅读体验 */
+}
+
+.rules h2, .rules h3 {
+    color: #006AB3; /* 使用与头部相同的颜色以保持一致性 */
+    margin-bottom: 10px; /* 添加适当的下外边距以区分标题和内容 */
+}
+
+.rules p {
+    margin-bottom: 10px; /* 段落之间的间距，以便于阅读 */
+    text-align: justify; /* 两端对齐文本，提高布局的整洁度 */
+    line-height: 1.6; /* 增加行高以提高阅读的舒适度 */
+}
+
+.rules form {
+    margin-top: 20px; /* 在表单上方添加外边距，与其他内容分隔 */
+    text-align: center; /* 将按钮居中对齐 */
 }
 
 h2 {
     color: #006AB3; /* 指定的蓝色 */
 }
+
+.form-hint {
+    color: #6c757d; /* 浅灰色，不醒目 */
+    font-size: 0.8rem; /* 较小的字体大小 */
+    display: block; /* 使元素独占一行 */
+    margin-top: 0.5rem; /* 根据需要调整，为提示信息添加一些顶部边距 */
+}
+
+.info-section {
+    border: 1px solid #d0d7de; /* 使用更细致、更浅颜色的边框 */
+    padding: 15px; /* 保持内边距 */
+    margin: 20px auto; /* 在上下添加间隙，并居中显示 */
+    max-width: 800px; /* 限制最大宽度与.container一致 */
+    border-radius: 5px; /* 保持轻微的圆角边缘 */
+    background-color: #ffffff; /* 背景颜色设置为白色 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加轻微的阴影，与.container风格一致 */
+}
+
+
+.info-section:last-child {
+    margin-bottom: 0; /* 确保最后一个部分之后没有额外的间隙 */
+}
+
+
 
 footer {
     background: #006AB3; /* 指定的蓝色 */
@@ -107,6 +185,7 @@ footer {
     appearance: none; /* 移除原生样式，为自定义样式做准备 */
     color: #333; /* 文字颜色，与页面文字保持一致 */
 }
+
 
 
 .form-group input[type="text"],
@@ -221,25 +300,26 @@ input[type="text"] {
 
 /* 第一个按钮 */
 .client-button-container .client-button:first-child {
-    flex-grow: 7;
+    flex-grow: 6;
     flex-basis: 0;
+    padding: 10px 15px;
     margin-right: 10px; /* 在第一个按钮的右侧添加空隙 */
-    /* 其他样式保持不变 */
 }
 
 /* 第二个按钮 */
 .client-button-container .client-button:nth-child(2) {
     flex-grow: 1.5;
     flex-basis: 0;
+    padding: 10px 15px;
     margin-right: 10px; /* 在第二个按钮的右侧添加空隙 */
-    /* 其他样式保持不变 */
 }
 
 /* 删除按钮 */
 .client-button-container .delete-button {
     flex-grow: 1.5;
     flex-basis: 0;
-    /* 其他样式保持不变 */
+    padding: 10px 15px;
+    align-self: stretch;
 }
 
 
@@ -269,3 +349,4 @@ input[type="text"] {
 
 
 
+/*Select*/

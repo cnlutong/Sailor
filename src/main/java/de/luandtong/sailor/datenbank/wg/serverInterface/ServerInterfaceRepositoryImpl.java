@@ -48,5 +48,28 @@ public class ServerInterfaceRepositoryImpl implements ServerInterfaceRepository 
         return serverInterfaceDBRepository.findByServerInterfaceName(serverInterfaceName).getInterfaceKeyUUID();
     }
 
+    @Override
+    public boolean hasServerInterfaceByServername(String serverInterfaceName) {
+        return serverInterfaceDBRepository.existsByServerInterfaceName(serverInterfaceName);
+    }
 
+    @Override
+    public boolean hasServerInterfaceByAddress(String address) {
+        return serverInterfaceDBRepository.existsByAddress(address);
+    }
+
+    @Override
+    public boolean hasServerInterfaceByListenPort(String listenPort) {
+        return serverInterfaceDBRepository.existsByListenPort(listenPort);
+    }
+
+    @Override
+    public boolean hasServerInterfaceByListenPortAndEthPort(String listenPort, String ethPort) {
+        return serverInterfaceDBRepository.existsByListenPortAndEthPort(listenPort, ethPort);
+    }
+
+    @Override
+    public void deleteServerInterface(String selectedInterfaceName) {
+        serverInterfaceDBRepository.deleteByServerInterfaceName(selectedInterfaceName);
+    }
 }

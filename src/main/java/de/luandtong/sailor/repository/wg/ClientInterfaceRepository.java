@@ -15,5 +15,11 @@ public interface ClientInterfaceRepository {
     List<String> findClientInterfaceNamesByServerInterfaceUUID(UUID serverInterfaceUUI);
 
     List<ClientInterface> findClientInterfacesByServerInterfaceUUID(UUID serverInterfaceUUID);
+
+    void deleteClientInterfaceByClientNameAndServerInterfaceUUID(String clientName, UUID serverInterfaceKeyUUIDByInterfaceName);
+
+    public boolean existsByClientName(String clientName);
+
+
 }
 

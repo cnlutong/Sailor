@@ -3,46 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Sailor - 初始化</title>
+    <title>Sailor - Add new server</title>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
 <header>
     <h1>Sailor</h1>
 </header>
-<!-- 显示操作反馈消息 -->
+<nav class="menu">
+    <ul>
+        <li><a href="/select" th:href="@{/select}">Servers</a></li>
+        <li><a href="/init" th:href="@{/init}">New server</a></li>
+        <li><a href="/about" th:href="@{/about}">About</a></li>
+        <li>
+            <!-- 注销操作的表单 -->
+            <form th:action="@{/log-out}" method="post">
+                <input type="submit" value="Log out"/>
+                <!-- Thymeleaf自动处理CSRF令牌 -->
+            </form>
+        </li>
+    </ul>
+</nav>
 <div class="alert error" th:if="${errorMessage}">
     <p th:text="${errorMessage}"></p>
 </div>
 
 <main>
     <section class="intro">
-        <h2>初始化配置</h2>
-        <p>请提供以下信息以初始化软件。</p>
+        <h2>Add the new WireGuard VPN Service (Server interface)</h2>
+        <p>Please provide the following information to initialize the WireGuard VPN Service (Server interface)</p>
     </section>
     <form method="post" th:action="@{/init}">
-        <h3>基本信息</h3>
+        <div class="info-section">
+            <h3>Basic Information</h3>
 
-        <div class="form-group">
-            <label for="serverInterfaceName">ServerInterfaceName:</label>
-            <input id="serverInterfaceName" name="serverInterfaceName" required type="text">
-        </div>
-        <div class="form-group">
-            <label for="address">Address:</label>
-            <input id="address" name="address" placeholder="10.0.0.1" type="text">
-        </div>
-        <div class="form-group">
-            <label for="listenPort">ListenPort:</label>
-            <input id="listenPort" name="listenPort" placeholder="51820" type="text">
-        </div>
+            <div class="form-group">
+                <label for="serverInterfaceName">WireGuard VPN Service name (Server interface name)</label>
+                <input id="serverInterfaceName" name="serverInterfaceName" required type="text">
+            </div>
+            <div class="form-group">
+                <label for="address">Server intranet IP address</label>
+                <input id="address" name="address" placeholder="10.0.0.1" type="text">
+                <small class="form-hint">Leave blank to use the default address</small>
 
-        <h3>高级信息</h3>
-        <div class="form-group">
-            <label for="ethPort">EthPort:</label>
-            <input id="ethPort" name="ethPort" placeholder="" type="text">
+            </div>
+            <div class="form-group">
+                <label for="listenPort">Server listen port</label>
+                <input id="listenPort" name="listenPort" placeholder="51820" type="text">
+                <small class="form-hint">Leave blank to use the default port</small>
+            </div>
+        </div>
+        <div class="info-section">
+            <h3>Advanced information</h3>
+            <div class="form-group">
+                <label for="ethPort">Ethernet interface</label>
+                <input id="ethPort" name="ethPort" placeholder="" type="text">
+                <small class="form-hint">Leave it blank and the system will automatically obtain the default
+                    port</small>
+            </div>
         </div>
         <div class="button-container">
-            <button class="next-button" type="submit">提交</button>
+            <button class="next-button" type="submit">submit</button>
         </div>
     </form>
 </main>

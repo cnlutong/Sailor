@@ -16,7 +16,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/sign-in", "/log-in", "/css/**", "/photo/**").permitAll()  // 允许不需要认证的路径
+                        .requestMatchers("/", "/sign-in", "/log-in", "/css/**", "/photo/**", "/log-out", "/about").permitAll()
                         .anyRequest().authenticated()  // 其他所有请求需要认证
                 )
                 .formLogin(formLogin -> formLogin
@@ -25,7 +25,12 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/").permitAll()  // 注销成功后的重定向
+                        .logoutUrl("/log-out") // 指定触发注销操作的URL，默认是"/logout"
+                        .logoutSuccessUrl("/log-in") // 注销成功后重定向到的URL
+                        .deleteCookies("JSESSIONID") // 注销时删除特定的cookies，例如删除会话ID
+                        .invalidateHttpSession(true) // 注销时使会话无效，默认为true
+                        .clearAuthentication(true) // 清除认证信息，默认为true
+                        .permitAll() // 允许所有用户访问注销URL
                 );
         return http.build();
     }

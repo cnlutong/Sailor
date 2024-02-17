@@ -13,7 +13,6 @@ public class ClientInterfaceDTO {
     @Id
     private Long id;
     private UUID uuid;
-
     private String clientName;
     private UUID interfaceKeyUUID;
     private UUID serverInterfaceUUID;
@@ -35,7 +34,7 @@ public class ClientInterfaceDTO {
     }
 
     ClientInterface toClientInterface() {
-        return new ClientInterface(uuid, clientName, serverInterfaceUUID, address, dns, persistentKeepalive);
+        return new ClientInterface(uuid, clientName, interfaceKeyUUID, serverInterfaceUUID, address, dns, persistentKeepalive);
     }
 
     public UUID getUuid() {

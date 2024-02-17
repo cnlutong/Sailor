@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static de.luandtong.sailor.domian.server.Command.run;
 
@@ -42,27 +43,38 @@ public class Server {
 
     //    启用服务
     public void enableServer(String name) throws IOException, InterruptedException {
-        String serverCong = name;
         // 启用 WireGuard 服务
-        run("sudo systemctl enable wg-quick@" + serverCong);
-        System.out.println("sudo systemctl enable wg-quick@" + serverCong);
+        run("sudo systemctl enable wg-quick@" + name);
+        System.out.println("sudo systemctl enable wg-quick@" + name);
     }
 
     //    启动服务
     public void startServer(String name) throws IOException, InterruptedException {
-        String serverCong = name;
         // 启动 WireGuard 服务
-        run("sudo systemctl start wg-quick@" + serverCong);
-        System.out.println("sudo systemctl start wg-quick@" + serverCong);
+        run("sudo systemctl start wg-quick@" + name);
+        System.out.println("sudo systemctl start wg-quick@" + name);
+    }
+
+    public void disableServer(String name) throws IOException, InterruptedException {
+        // 关闭 WireGuard 服务
+        run("sudo systemctl disable wg-quick@" + name);
+        System.out.println("sudo systemctl disable wg-quick@" + name);
+    }
+
+    public void stopServer(String name) throws IOException, InterruptedException {
+        // 停止 WireGuard 服务
+        run("sudo systemctl stop wg-quick@" + name);
+        System.out.println("sudo systemctl stop wg-quick@" + name);
     }
 
     //    重启服务
     public void restartServer(String name) throws IOException, InterruptedException {
-        String serverCong = name;
         // 重启 WireGuard 服务以应用更改
-        run("sudo systemctl restart wg-quick@" + serverCong + ".service");
-        System.out.println("sudo systemctl restart wg-quick@" + serverCong + ".service");
+        run("sudo systemctl restart wg-quick@" + name + ".service");
+        System.out.println("sudo systemctl restart wg-quick@" + name + ".service");
     }
+
+
 
     //    创建密钥
     public List<String> generateKey(boolean isServer, String name) throws IOException, InterruptedException {
@@ -117,7 +129,7 @@ public class Server {
     }
 
     //    续写配置文件
-    public void appendServerConfigFile(String serverName, String clientName, String clientPublicKey, String clientAddress) throws IOException, InterruptedException {
+    public void appendServerConfigFile(String serverName, String clientName, String clientPublicKey, String clientAddress) throws IOException {
 
         String serverCong = serverName + ".conf";
         // 更新服务器 WireGuard 配置文件以添加客户端信息
@@ -125,6 +137,90 @@ public class Server {
 
         Files.write(Paths.get("/etc/wireguard/" + serverCong), peerInfo.getBytes(), StandardOpenOption.APPEND);
 
+    }
+
+    public void removeClientFromConfig(String serverName, String clientName) throws IOException, InterruptedException {
+        Path configPath = Paths.get("/etc/wireguard", serverName + ".conf");
+        if (!Files.exists(configPath)) {
+            throw new IOException("Config file does not exist: " + configPath);
+        }
+
+        List<String> lines = Files.readAllLines(configPath);
+        List<String> modifiedLines = new ArrayList<>();
+        int skipLines = 0; // 跳过行数计数器
+
+        for (String line : lines) {
+            if (skipLines > 0) {
+                // 如果当前处于跳过行的状态，则减少计数器并继续循环
+                skipLines--;
+                continue;
+            }
+            if (line.trim().startsWith("#" + clientName)) {
+                // 如果找到以客户端名称注释开头的行，则设置跳过接下来的3行
+                skipLines = 3;
+                continue;
+            }
+            // 将不需要跳过的行添加到modifiedLines
+            modifiedLines.add(line);
+        }
+
+        // 将更新后的配置内容回写到配置文件
+        writeNewConfigFile(true, serverName, String.join(System.lineSeparator(), modifiedLines));
+
+        // 可能需要更新文件权限的命令
+        run("sudo chmod 600 " + configPath);
+    }
+
+    public void removeClientInterfaceFiles(String clientInterfaceName) throws IOException {
+        Stream.of(
+                "/etc/wireguard/clients/" + clientInterfaceName + ".conf",
+                "/etc/wireguard/clients/" + clientInterfaceName + "_public.key",
+                "/etc/wireguard/clients/" + clientInterfaceName + "_private.key",
+                "/etc/wireguard/clients/qr/" + clientInterfaceName + ".png"
+        ).forEach(filePath -> {
+            try {
+                Files.deleteIfExists(Paths.get(filePath));
+            } catch (IOException ignored) {
+            }
+        });
+    }
+
+    public void removeServerInterfaceFiles(String serverInterfaceName) throws IOException {
+        // 删除服务器接口的配置文件
+        Stream.of(
+                "/etc/wireguard/" + serverInterfaceName + ".conf",
+                "/etc/wireguard/" + serverInterfaceName + "_public.key",
+                "/etc/wireguard/" + serverInterfaceName + "_private.key"
+        ).forEach(filePath -> {
+            try {
+                Files.deleteIfExists(Paths.get(filePath));
+            } catch (IOException ignored) {
+            }
+        });
+
+        // 删除客户端配置文件和QR码图片
+        Path clientsPath = Paths.get("/etc/wireguard/clients");
+        Path qrPath = Paths.get("/etc/wireguard/clients/qr");
+        try (Stream<Path> paths = Files.walk(clientsPath)) {
+            paths.filter(Files::isRegularFile)
+                    .filter(path -> path.toString().contains(serverInterfaceName + "-"))
+                    .forEach(path -> {
+                        try {
+                            Files.deleteIfExists(path);
+                        } catch (IOException ignored) {
+                        }
+                    });
+        }
+        try (Stream<Path> paths = Files.walk(qrPath)) {
+            paths.filter(Files::isRegularFile)
+                    .filter(path -> path.toString().contains(serverInterfaceName + "-") && path.toString().endsWith(".png"))
+                    .forEach(path -> {
+                        try {
+                            Files.deleteIfExists(path);
+                        } catch (IOException ignored) {
+                        }
+                    });
+        }
     }
 
     private void modifySysctlConfFile() throws IOException, InterruptedException {
@@ -153,13 +249,6 @@ public class Server {
     }
 
     private void createConfigFileStoragePath() throws IOException, InterruptedException {
-        //创建路径
-//        Path path = Paths.get("/etc/wireguard/clients/");
-//        if (!Files.exists(path)) {
-//            // 如果不存在，则创建目录
-//            run("sudo mkdir /etc/wireguard/clients/");
-//        }
-
         run("sudo mkdir /etc/wireguard/clients/");
         run("sudo mkdir /etc/wireguard/clients/qr");
     }
@@ -172,7 +261,7 @@ public class Server {
         // 安装 WireGuard
         run("sudo " + packageManager + " install -y wireguard");
         // 安装 qrencode
-        run("sudo " + packageManager + " install -y qrencode");
+//        run("sudo " + packageManager + " install -y qrencode");
         // 安装 curl
         run("sudo " + packageManager + " install -y curl");
     }

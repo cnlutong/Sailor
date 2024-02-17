@@ -3,14 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Sailor - 主页</title>
+    <title>Sailor - Home</title>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
 <header>
     <h1>Sailor</h1>
 </header>
-<!-- 显示操作反馈消息 -->
+<nav class="menu">
+    <ul>
+        <li><a href="/select" th:href="@{/select}">Servers</a></li>
+        <li><a href="/init" th:href="@{/init}">New server</a></li>
+        <li><a href="/about" th:href="@{/about}">About</a></li>
+        <li>
+            <!-- 注销操作的表单 -->
+            <form th:action="@{/log-out}" method="post">
+                <input type="submit" value="Log out"/>
+                <!-- Thymeleaf自动处理CSRF令牌 -->
+            </form>
+        </li>
+    </ul>
+</nav>
+
 <div class="alert success" th:if="${successMessage}">
     <p th:text="${successMessage}"></p>
 </div>
@@ -21,12 +35,12 @@
 <main class="main-container">
     <div class="left-container">
         <section class="info section-container">
-            <h2>ServerInterface</h2>
+            <h2>Selected server interface</h2>
             <p>Server Interface Name: <span th:text="${serverInterfaceName}"></span></p>
         </section>
 
         <section class="interface-detail section-container">
-            <h2>ServerInterface Detail</h2>
+            <h2>Interface Detail</h2>
             <p>Interface Name: <span th:text="${serverInterfaceName}"></span></p>
             <p>Public Key: <span th:text="${publicKey}"></span></p>
             <p>Address: <span th:text="${address}"></span></p>
@@ -35,11 +49,11 @@
         </section>
 
         <section class="client-interface section-container">
-            <h2>管理ClientInterface</h2>
+            <h2>Add new client</h2>
             <form class="client-interface-form" method="post" th:action="@{/addClientInterface}">
                 <input name="clientName" placeholder="Client Name" required type="text">
                 <input name="selectedInterface" th:value="${selectedInterface}" type="hidden">
-                <button class="next-button" type="submit">添加ClientInterface</button>
+                <button class="next-button" type="submit">add</button>
             </form>
         </section>
 
@@ -47,18 +61,22 @@
 
     <div class="right-container">
         <div class="client-list section-container">
-            <h2>已添加的ClientInterface</h2>
+            <h2>Current clients</h2>
             <ul>
                 <li th:each="client : ${clients}">
                     <div class="client-button-container">
-                        <!-- 动态生成的下载按钮 -->
+                        <!-- 下载按钮 -->
                         <a class="client-button" th:download="${client} + .conf"
                            th:href="@{/download/{clientName}(clientName=${client})}" th:text="${client}"></a>
-                        <!-- 固定的下载按钮 2 -->
+                        <!-- 二维码下载按钮 -->
                         <a class="client-button" download="${client} + .png"
                            th:href="@{/download/qr/{clientName}(clientName=${client})}">QR Code</a>
                         <!-- 删除按钮 -->
-                        <button class="client-button delete-button" type="button">删除</button>
+                        <form th:action="@{/deleteClientInterface}" method="post">
+                            <input name="clientName" th:value="${client}" type="hidden"/>
+                            <input name="selectedInterface" th:value="${selectedInterface}" type="hidden">
+                            <button type="submit" class="client-button delete-button">delete</button>
+                        </form>
                     </div>
                 </li>
             </ul>

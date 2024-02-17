@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Sailor - Login</title>
+    <title>Sailor - About</title>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
@@ -25,24 +25,12 @@
     </ul>
 </nav>
 <main>
-    <div class="logo-container">
-        <img alt="Sailor Logo" src="/photo/sailormoon.jpg"/>
-    </div>
-    <!-- 显示错误消息 -->
-    <div class="alert alert-danger" th:if="${param.error}">
-        Invalid username or password
-    </div>
-    <form method="post" th:action="@{/log-in}">
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input id="username" name="username" required type="text">
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input id="password" name="password" required type="password">
-        </div>
-        <button class="next-button" type="submit">login</button>
-    </form>
+    <section class="intro"><h2>About Sailor</h2></section>
+    <section class="rules">
+        <h3>Sailor 1.0 beta</h3>
+        <p>https://github.com/cnlutong/Sailor</p>
+    </section>
+
 </main>
 <footer>
     <p>&copy; 2023 Sailor. All rights reserved.</p>

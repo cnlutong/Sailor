@@ -17,15 +17,18 @@ public class ClientInterface implements WGInterface {
 
     private UUID uuid;
     private String clientName;
+
+    private UUID interfaceKeyUUID;
     private UUID serverInterfaceUUID;
     private String address;
     private String dns;
     private String persistentKeepalive;
 
 
-    public ClientInterface(UUID uuid, String clientName, UUID serverInterfaceUUID, String address, String dns, String persistentKeepalive) {
+    public ClientInterface(UUID uuid, String clientName, UUID interfaceKeyUUID, UUID serverInterfaceUUID, String address, String dns, String persistentKeepalive) {
         this.uuid = uuid;
         this.clientName = clientName;
+        this.interfaceKeyUUID = interfaceKeyUUID;
         this.serverInterfaceUUID = serverInterfaceUUID;
         this.address = address;
         this.dns = dns;
@@ -55,7 +58,7 @@ public class ClientInterface implements WGInterface {
         return clientName;
     }
 
-    public UUID getInterfaceKey() {
+    public UUID getServerInterfaceKey() {
         return serverInterfaceUUID;
     }
 
@@ -71,5 +74,11 @@ public class ClientInterface implements WGInterface {
         return persistentKeepalive;
     }
 
+    public UUID getInterfaceKeyUUID() {
+        return interfaceKeyUUID;
+    }
 
+    public UUID getServerInterfaceUUID() {
+        return serverInterfaceUUID;
+    }
 }
