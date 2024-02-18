@@ -40,7 +40,7 @@ curl -sSL -o docker-compose.yml https://raw.githubusercontent.com/cnlutong/Sailo
 
 # 6. 启动 MariaDB 容器
 echo "Starting MariaDB container with Docker Compose..."
-docker docker-compose up -d
+docker-compose up -d
 
 # 7. 运行下载的 JAR 文件
 echo "Running downloaded JAR file..."
