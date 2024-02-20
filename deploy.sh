@@ -54,6 +54,6 @@ echo "Database initialized successfully."
 
 # 8. 运行下载的 JAR 文件
 echo "Running downloaded JAR file..."
-java -jar sailor_app.jar
+sudo java -jar sailor_app.jar
 
 echo "Deployment completed successfully."
