@@ -34,15 +34,25 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose docker-compose-plugin
 
 
-# 5. 下载 docker-compose.yml 文件
+# 4. 下载 docker-compose.yml 文件
 echo "Downloading docker-compose.yml..."
 curl -sSL -o docker-compose.yml https://raw.githubusercontent.com/cnlutong/Sailor/master/docker-compose.yml
 
-# 6. 启动 MariaDB 容器
+# 5. 启动 MariaDB 容器
 echo "Starting MariaDB container with Docker Compose..."
 docker-compose up -d
 
-# 7. 运行下载的 JAR 文件
+
+# 6. 等待 MariaDB 容器完全启动
+echo "Waiting for MariaDB container to be fully up..."
+sleep 10
+
+# 7. 执行数据库初始化脚本
+echo "Initializing the Sailor database..."
+curl -sSL https://raw.githubusercontent.com/cnlutong/Sailor/master/init_db.sql | docker exec -i sailor_mariadb mysql -uroot -p"$MYSQL_ROOT_PASSWORD"
+echo "Database initialized successfully."
+
+# 8. 运行下载的 JAR 文件
 echo "Running downloaded JAR file..."
 java -jar sailor_app.jar
 
