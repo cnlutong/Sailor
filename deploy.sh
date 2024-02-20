@@ -49,7 +49,7 @@ sleep 10
 
 # 7. 执行数据库初始化脚本
 echo "Initializing the Sailor database..."
-curl -sSL https://raw.githubusercontent.com/cnlutong/Sailor/master/init_db.sql | docker exec -i sailor_mariadb mysql -uroot -p"$MYSQL_ROOT_PASSWORD"
+curl -sSL https://raw.githubusercontent.com/cnlutong/Sailor/master/init_db.sql | docker exec -i sailor_mariadb mariadb -uroot -p"$MYSQL_ROOT_PASSWORD"
 echo "Database initialized successfully."
 
 # 8. 运行下载的 JAR 文件
