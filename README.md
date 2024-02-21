@@ -27,7 +27,7 @@ Sailor是一个基于SpringBoot构建的WireGuard VPN管理工具，支持在Ubu
 一键部署脚本
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/cnlutong/Sailor/master/deploy.sh | sudo bash
+curl -sSL -o deploy.sh https://raw.githubusercontent.com/cnlutong/Sailor/master/deploy.sh && chmod +x deploy.sh && sudo ./deploy.sh
 ```
 
 完毕后，请访问`http://服务器地址:8080`开始使用Sailor。
