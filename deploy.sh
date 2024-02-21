@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# 停止执行脚本时遇到的错误
-set -e
+set -x
 
 # 定义变量
 MYSQL_ROOT_PASSWORD="rgbwQLj9nfPYaHVZKaFF"
