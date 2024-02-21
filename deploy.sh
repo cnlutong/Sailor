@@ -52,11 +52,13 @@ echo "**** Initializing the Sailor database..."
 curl -sSL https://raw.githubusercontent.com/cnlutong/Sailor/master/init_db.sql | docker exec -i sailor_mariadb mariadb -uroot -p"$MYSQL_ROOT_PASSWORD"
 echo "Database initialized successfully."
 
-# 8. 运行下载的 JAR 文件
-echo "**** Running downloaded JAR file..."
-sudo java -jar sailor_app.jar
-
+# 8. 开启防火墙
 echo "**** Open the Firewall."
 sudo ufw allow 8080
 
-echo "**** Deployment completed successfully."
+
+# 9. 运行下载的 JAR 文件
+echo "**** Running downloaded JAR file..."
+sudo java -jar sailor_app.jar
+
+
