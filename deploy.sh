@@ -54,20 +54,26 @@ initialize() {
     # 8. 开启防火墙
     echo "**** Opening the Firewall."
     sudo ufw allow 8080
+
+    echo "Initialization complete."
+
 }
 
 run_app() {
     # 9. 运行下载的 JAR 文件
     echo "**** Running downloaded JAR file in the background..."
     nohup sudo java -jar sailor_app.jar > sailor_app.log 2>&1 &
+
     echo "Sailor app is now running in the background."
 }
 
-# 显示欢迎信息和Sailor图形艺术化大logo
-cat << "EOF"
+
+while true; do
+    # 显示欢迎信息和Sailor图形艺术化大logo
+    cat << "EOF"
 *********************************************
 *                                           *
-*          Welcome to the Sailor!           *
+*          Welcome to Sailor!               *
 *                                           *
 *********************************************
 
@@ -78,24 +84,30 @@ cat << "EOF"
   ____) | | (_| | | | | | | (_) | | |
  |_____/   \__,_| |_| |_|  \___/  |_|
 
-https://github.com/cnlutong/Sailor
+
 
 Please choose an option:
 1. Initialize
 2. Run Application
+3. Exit
 EOF
 
-# 使用 read 命令接受用户输入
-read -p "Enter your choice [1-2]: " choice
+    # 使用 read 命令接受用户输入
+    read -p "Enter your choice [1-2]: " choice
 
-case $choice in
-    1)
-        initialize
-        ;;
-    2)
-        run_app
-        ;;
-    *)
-        echo "Invalid option $choice. Please enter 1 or 2."
-        ;;
-esac
+    case $choice in
+        1)
+            initialize
+            ;;
+        2)
+            run_app
+            ;;
+        3)
+            echo "Exiting..."
+            exit 0
+            ;;
+        *)
+            echo "Invalid option $choice. Please enter 1, 2, or 3."
+            ;;
+    esac
+done
