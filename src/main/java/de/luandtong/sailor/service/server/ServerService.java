@@ -44,7 +44,7 @@ public class ServerService {
         // 写入配置文件
         this.writeNewServerConfigFile(serverInterfaceName, conf);
 
-        server.openPort(ethPort);
+        server.openPort(listenPort);
         server.enableServer(serverInterfaceName);
         server.startServer(serverInterfaceName);
     }
