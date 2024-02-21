@@ -19,6 +19,7 @@ curl -L $LATEST_RELEASE -o sailor_app.jar
 
 # 3. 安装 Docker
 echo "**** Installing Docker..."
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
