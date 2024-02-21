@@ -67,6 +67,17 @@ run_app() {
     echo "Sailor app is now running in the background."
 }
 
+stop_app() {
+    echo "**** Stopping Sailor app..."
+    PID=$(ps aux | grep 'sailor_app.jar' | grep -v grep | awk '{print $2}')
+    if [ -z "$PID" ]; then
+        echo "Sailor app is not running."
+    else
+        sudo kill "$PID"
+        echo "Sailor app has been stopped."
+    fi
+}
+
 
 while true; do
     # 显示欢迎信息和Sailor图形艺术化大logo
@@ -89,25 +100,30 @@ while true; do
 Please choose an option:
 1. Initialize
 2. Run Application
-3. Exit
+3. Stop Application
+4. Exit
 EOF
 
     # 使用 read 命令接受用户输入
-    read -p "Enter your choice [1-2]: " choice
+read -p "Enter your choice [1-2]: " choice
 
-    case $choice in
-        1)
-            initialize
-            ;;
-        2)
-            run_app
-            ;;
-        3)
-            echo "Exiting..."
-            exit 0
-            ;;
-        *)
-            echo "Invalid option $choice. Please enter 1, 2, or 3."
-            ;;
-    esac
+case $choice in
+    1)
+        initialize
+        ;;
+    2)
+        run_app
+        ;;
+    3)
+        stop_app
+        ;;
+    4)
+        echo "Exiting..."
+        exit 0
+        ;;
+    *)
+        echo "Invalid option $choice. Please enter 1, 2, 3, or 4."
+        ;;
+esac
+
 done
