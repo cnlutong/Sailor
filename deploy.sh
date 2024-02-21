@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+
 
 # 定义变量
 MYSQL_ROOT_PASSWORD="rgbwQLj9nfPYaHVZKaFF"
