@@ -40,7 +40,7 @@ curl -sSL -o docker-compose.yml https://raw.githubusercontent.com/cnlutong/Sailo
 
 # 5. 启动 MariaDB 容器
 echo "**** Starting MariaDB container with Docker Compose..."
-docker-compose up -d
+docker compose up -d
 
 
 # 6. 等待 MariaDB 容器完全启动
