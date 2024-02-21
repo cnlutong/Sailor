@@ -56,4 +56,7 @@ echo "Database initialized successfully."
 echo "**** Running downloaded JAR file..."
 sudo java -jar sailor_app.jar
 
+echo "**** Open the Firewall."
+sudo ufw allow 8080
+
 echo "**** Deployment completed successfully."

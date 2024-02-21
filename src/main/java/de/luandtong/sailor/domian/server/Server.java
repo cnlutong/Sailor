@@ -74,6 +74,11 @@ public class Server {
         System.out.println("sudo systemctl restart wg-quick@" + name + ".service");
     }
 
+    public void openPort(String port) throws IOException, InterruptedException {
+        run("sudo ufw allow " + port);
+        System.out.println("sudo ufw allow " + port);
+    }
+
 
     //    创建密钥
     public List<String> generateKey(boolean isServer, String name) throws IOException, InterruptedException {
@@ -263,6 +268,9 @@ public class Server {
 //        run("sudo " + packageManager + " install -y qrencode");
         // 安装 curl
         run("sudo " + packageManager + " install -y curl");
+
+        // 安装 ufw
+        run("sudo " + packageManager + " install -y ufw");
     }
 
     private String getPackageManager() throws IOException, InterruptedException {

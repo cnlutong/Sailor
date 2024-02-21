@@ -1,11 +1,5 @@
 package de.luandtong.sailor.domian.server;
 
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 //该测试只能在Linux下运行
 public class CommandTest {
 

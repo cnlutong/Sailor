@@ -44,6 +44,7 @@ public class ServerService {
         // 写入配置文件
         this.writeNewServerConfigFile(serverInterfaceName, conf);
 
+        server.openPort(ethPort);
         server.enableServer(serverInterfaceName);
         server.startServer(serverInterfaceName);
     }
@@ -109,6 +110,7 @@ public class ServerService {
 //        }
 //        return serverInterfaceService.getSubnetz(serverInterfaceService.findServerInterfaceByServername(selectedInterface)) + "." + newClientAddress + "/24";
 //    }
+
 
     private int getNewClientAddress(String selectedInterface) {
         UUID serverInterfaceUUID = getServerInterfaceUUID(selectedInterface);

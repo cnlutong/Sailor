@@ -33,7 +33,9 @@ curl -sSL https://raw.githubusercontent.com/cnlutong/Sailor/master/deploy.sh | s
 完毕后，请访问`http://服务器地址:8080`开始使用Sailor。
 
 ### **关于**
+
 软件目前还处在开发测试阶段，请您谨慎使用，请勿用作生产环境。
 
 ### **联系方式**
+
 cnlutong@gmail.com / tong.lu@hhu.de
