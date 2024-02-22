@@ -82,6 +82,7 @@ stop_app() {
 while true; do
     # 显示欢迎信息和Sailor图形艺术化大logo
     cat << "EOF"
+
 *********************************************
 *                                           *
 *          Welcome to Sailor!               *
@@ -96,12 +97,14 @@ while true; do
  |_____/   \__,_| |_| |_|  \___/  |_|
 
 
+https://github.com/cnlutong/Sailor
 
 Please choose an option:
 1. Initialize
 2. Run Application
 3. Stop Application
 4. Exit
+
 EOF
 
     # 使用 read 命令接受用户输入

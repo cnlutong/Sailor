@@ -50,22 +50,21 @@ public class MainFunctionController {
         }
 
         // 输出接收到的数据
-        System.out.println("Server Interface Name: " + serverInterfaceName);
-        System.out.println("Address: " + address + "/24");
-        System.out.println("Listen Port: " + listenPort);
-        System.out.println("Eth Port: " + (ethPort != null ? ethPort : "If not provided, the system will obtain the default address"));
+        System.out.println("User add new Interface");
+        System.out.println("Post Server Interface Name: " + serverInterfaceName);
+        System.out.println("Post Address: " + address + "/24");
+        System.out.println("Post Listen Port: " + listenPort);
+        System.out.println("Post Eth Port: " + (ethPort != null ? ethPort : "If not provided, the system will obtain the default address"));
 
         if (ethPort != null && ethPort.isEmpty()) {
             ethPort = serverService.getDefaultEth();
-            System.out.println("get Default ethPort: " + ethPort);
+            System.out.println("Default ethPort: " + ethPort);
         }
 
         if (serverService.hasServerInterfaceByServername(serverInterfaceName)) {
             redirectAttributes.addFlashAttribute("errorMessage", "The server interface already exists.");
             return "redirect:/init";
         }
-
-        System.out.println(serverService.hasServerInterfaceByAddress(address));
 
         if (!serverService.isValidIPAddress(address)) {
             redirectAttributes.addFlashAttribute("errorMessage", "Please enter a valid IP address for the server");
@@ -126,7 +125,7 @@ public class MainFunctionController {
 
     @GetMapping("/home")
     public String home(@RequestParam(required = false) String selectedInterface, Model model) throws IOException, InterruptedException {
-        System.out.println("Home selected Interface :  " + selectedInterface);
+        System.out.println("User selected Interface :  " + selectedInterface);
         if (selectedInterface != null && !selectedInterface.isEmpty()) {
             // 假设 serverService 有方法来获取ServerInterface的详细信息
             model.addAttribute("selectedInterface", selectedInterface);
@@ -154,10 +153,10 @@ public class MainFunctionController {
             redirectAttributes.addFlashAttribute("errorMessage", "The input contains illegal characters. Please use only English characters, numbers, underscores or dashes.");
             return "redirect:/home?selectedInterface=" + selectedInterface;
         }
-
+        System.out.println("User add new selectedInterface");
         System.out.println("Post selectedInterface: " + selectedInterface);
         System.out.println("Post clientName: " + clientName);
-        System.out.println("clientName: " + selectedInterface + "-" + clientName);
+        System.out.println("client full Name: " + selectedInterface + "-" + clientName);
 
         int temp = serverService.creativeClientInterface(selectedInterface, selectedInterface + "-" + clientName);
 

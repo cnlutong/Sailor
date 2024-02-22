@@ -39,6 +39,8 @@ public class ServerService {
 
         // 创建服务端接口配置文件
         String conf = serverInterfaceService.getServerInterfaceConfig(serverInterfaceName, serverUUID, keyUUID, address, listenPort, ethPort, privateKey);
+
+        System.out.println("New ServerInterface Conf: " +conf);
         // 保存到数据库
         serverInterfaceService.save(serverUUID, serverInterfaceName, keyUUID, address, listenPort, ethPort);
         // 写入配置文件
@@ -86,7 +88,7 @@ public class ServerService {
         String conf = clientInterfaceService.getServerInterfaceConfig(clientUUID, clientName, keyUUID, serverInterfaceUUID, address, dns, persistentKeepalive,
                 privateKey, serverInterfacePublicKey, publicIP, listenPort);
 
-        System.out.println("New ServerInterface Conf: " + conf);
+        System.out.println("New ClientInterface Conf: " + conf);
         // 保存到数据库
         clientInterfaceService.saveClientInterface(clientUUID, clientName, keyUUID, getServerInterfaceUUID(selectedInterfaceName), address, dns, persistentKeepalive);
         // 写入配置文件
@@ -102,16 +104,6 @@ public class ServerService {
         return 1;
     }
 
-
-//    private String getANewAddress(String selectedInterface) {
-//        int newClientAddress = this.getNewClientAddress(selectedInterface);
-//        if(newClientAddress == -1){
-//            return newClientAddress;
-//        }
-//        return serverInterfaceService.getSubnetz(serverInterfaceService.findServerInterfaceByServername(selectedInterface)) + "." + newClientAddress + "/24";
-//    }
-
-
     private int getNewClientAddress(String selectedInterface) {
         UUID serverInterfaceUUID = getServerInterfaceUUID(selectedInterface);
         List<ClientInterface> clientInterfaces = clientInterfaceService.findClientInterfacesByServerInterfaceUUID(serverInterfaceUUID);
@@ -124,7 +116,6 @@ public class ServerService {
     }
 
     public void deleteClientInterface(String clientName, String selectedInterfaceName) throws IOException, InterruptedException {
-//        System.out.println("delete ClientInterface: "+clientInterfaceService.findClientInterfaceByClientName(clientName).getInterfaceKeyUUID());
 
         interfaceKeyService.deleteByUuid(clientInterfaceService.findClientInterfaceByClientName(clientName).getInterfaceKeyUUID());
         clientInterfaceService.deleteClientInterface(clientName, serverInterfaceService.findServerInterfaceUUIDByInterfaceName(selectedInterfaceName));

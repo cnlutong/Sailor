@@ -2,6 +2,7 @@ package de.luandtong.sailor.controller.authentication;
 
 import de.luandtong.sailor.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,7 @@ public class AuthenticationController {
 
     @PostMapping("/sign-in")
     public String register(@RequestParam String username, @RequestParam String password, RedirectAttributes redirectAttributes) {
+        System.out.println("User Login");
         System.out.println("username " + username);
         System.out.println("password " + password);
 
