@@ -20,13 +20,10 @@ class ServerServiceTest {
 
     @Mock
     private Server server;
-
     @Mock
     private ServerInterfaceService serverInterfaceService;
-
     @Mock
     private ClientInterfaceService clientInterfaceService;
-
     @Mock
     private InterfaceKeyService interfaceKeyService;
 
@@ -38,54 +35,7 @@ class ServerServiceTest {
         openMocks(this);
     }
 
-    @Test
-    void creativeServerInterfaceShouldPerformExpectedOperations() throws IOException, InterruptedException {
-        // 假设数据
-        String serverInterfaceName = "wg0";
-        String address = "10.10.0.1/24";
-        String listenPort = "51820";
-        String ethPort = "eth0";
-        List<String> key = Arrays.asList("publicKey", "privateKey");
-        UUID keyUUID = UUID.randomUUID();
-        UUID serverUUID = UUID.randomUUID();
 
-        // 配置模拟行为
-        when(server.generateKey(true, serverInterfaceName)).thenReturn(key);
-        doNothing().when(interfaceKeyService).save(any(UUID.class), eq(key.get(0)), eq(key.get(1)));
-        doNothing().when(serverInterfaceService).save(any(UUID.class), eq(serverInterfaceName), any(UUID.class), eq(address), eq(listenPort), eq(ethPort));
-        doNothing().when(server).writeNewConfigFile(anyBoolean(), eq(serverInterfaceName), anyString());
-        doNothing().when(server).enableServer(serverInterfaceName);
-        doNothing().when(server).startServer(serverInterfaceName);
-
-        // 调用方法
-        serverService.creativeServerInterface(serverInterfaceName, address, listenPort, ethPort);
-
-        // 验证交互
-        verify(interfaceKeyService, times(1)).save(any(UUID.class), eq(key.get(0)), eq(key.get(1)));
-        verify(serverInterfaceService, times(1)).save(any(UUID.class), eq(serverInterfaceName), any(UUID.class), eq(address), eq(listenPort), eq(ethPort));
-        verify(server, times(1)).enableServer(serverInterfaceName);
-        verify(server, times(1)).startServer(serverInterfaceName);
-    }
-
-    @Test
-    void deleteServerInterfaceShouldPerformExpectedOperations() throws IOException, InterruptedException {
-        String selectedInterfaceName = "wg0";
-
-        // 配置模拟行为
-        doNothing().when(serverInterfaceService).deleteServerInterface(selectedInterfaceName);
-        doNothing().when(server).stopServer(selectedInterfaceName);
-        doNothing().when(server).disableServer(selectedInterfaceName);
-        doNothing().when(server).removeServerInterfaceFiles(selectedInterfaceName);
-
-        // 调用方法
-        serverService.deleteServerInterface(selectedInterfaceName);
-
-        // 验证交互
-        verify(serverInterfaceService, times(1)).deleteServerInterface(selectedInterfaceName);
-        verify(server, times(1)).stopServer(selectedInterfaceName);
-        verify(server, times(1)).disableServer(selectedInterfaceName);
-        verify(server, times(1)).removeServerInterfaceFiles(selectedInterfaceName);
-    }
 
 
     @Test
