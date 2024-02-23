@@ -13,8 +13,11 @@ import java.util.stream.Collectors;
 @Service
 public class ServerInterfaceService {
 
+    private final ServerInterfaceRepository serverInterfaceRepository;
     @Autowired
-    private ServerInterfaceRepository serverInterfaceRepository;
+    public ServerInterfaceService(ServerInterfaceRepository serverInterfaceRepository) {
+        this.serverInterfaceRepository = serverInterfaceRepository;
+    }
 
     public ServerInterface findServerInterfaceByServername(String serverInterfaceName) {
         return serverInterfaceRepository.findServerInterfaceByServername(serverInterfaceName);

@@ -1,41 +1,43 @@
 # **Sailor**
 
-Sailor是一个基于SpringBoot构建的WireGuard VPN管理工具，支持在Ubuntu服务器上快速部署。它提供一个网页界面，通过该界面，用户能够轻松创建和管理VPN服务及其客户端。
+For the Chinese version, click here: [README-zh_CH.md](https://github.com/cnlutong/Sailor/blob/master/README-zh_CH.md).
 
-## **技术栈**
+Sailor is a WireGuard VPN management tool built on SpringBoot, supporting rapid deployment on Ubuntu servers. It offers a web interface, through which users can easily create and manage VPN services and their clients.
 
-- **后端**：使用SpringBoot框架，采用洋葱结构设计，代码清晰，可维护性高。
-- **数据持久化**：使用MariaDB作为数据库系统。
-- **前端**：界面使用HTML和CSS构建，提供直观友好的用户操作界面。
+## **Technology Stack**
 
-## **核心功能**
+- **Backend**: Utilizes the SpringBoot framework, adopts an onion architecture design, making the code clear and maintainable.
+- **Data Persistence**: Employs MariaDB as the database system.
+- **Frontend**: The interface is constructed with HTML and CSS, providing an intuitive and friendly user operation interface.
 
-- **用户管理**：支持用户注册与登录功能，确保服务的安全性。
-- **VPN服务管理**：允许用户创建和删除VPN服务实例，便于管理不同的网络环境。
-- **客户端管理**：支持创建和删除VPN客户端，方便用户根据需求配置网络访问。
+## **Core Features**
 
-## **快速开始**
+- **User Management**: Supports user registration and login features, ensuring the security of the service.
+- **VPN Service Management**: Allows users to create and delete VPN service instances, facilitating the management of different network environments.
+- **Client Management**: Supports the creation and deletion of VPN clients, enabling users to configure network access according to their needs.
 
-请确保您的服务器满足以下条件：
+## **Quick Start**
 
-- 可以访问互联网
-- 拥有公网IP或在已经配置好端口转发的内网中
-- Ubuntu 20.04/Debian 12 或更新版本(或基于此的部分衍生版)
+Please ensure your server meets the following requirements:
 
-### **安装步骤**
+- Access to the internet
+- Possession of a public IP or located within an internally networked environment with port forwarding configured
+- Ubuntu 20.04/Debian 12 or newer versions (or some derivatives based on these)
 
-一键部署脚本
+### **Installation Steps**
+
+One-click deployment script
 
 ```bash
 curl -sSL -o deploy.sh https://raw.githubusercontent.com/cnlutong/Sailor/master/deploy.sh && chmod +x deploy.sh && sudo ./deploy.sh
 ```
 
-完毕后，请访问`http://服务器地址:8080`开始使用Sailor。
+After completion, please visit http://server_address:8080 to start using Sailor.
 
-### **关于**
+### **About**
 
-软件目前还处在开发测试阶段，请您谨慎使用，请勿用作生产环境。
+The software is currently in the development and testing stage, please use it with caution and not for production environments.
 
-### **联系方式**
 
+### **Contact Information**
 cnlutong@gmail.com / tong.lu@hhu.de

@@ -14,9 +14,11 @@ import java.util.stream.Collectors;
 public class ClientInterfaceService {
 
 
+    private final ClientInterfaceRepository clientInterfaceRepository;
     @Autowired
-    private ClientInterfaceRepository clientInterfaceRepository;
-
+    public ClientInterfaceService(ClientInterfaceRepository clientInterfaceRepository) {
+        this.clientInterfaceRepository = clientInterfaceRepository;
+    }
 
     ClientInterface findClientInterfaceByClientName(String clientName) {
         return clientInterfaceRepository.findClientInterfaceByClientName(clientName);

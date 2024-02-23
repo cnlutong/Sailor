@@ -10,9 +10,12 @@ import java.util.UUID;
 @Service
 public class InterfaceKeyService {
 
-    @Autowired
-    private InterfaceKeyRepository interfaceKeyRepository;
 
+    private final InterfaceKeyRepository interfaceKeyRepository;
+    @Autowired
+    public InterfaceKeyService(InterfaceKeyRepository interfaceKeyRepository) {
+        this.interfaceKeyRepository = interfaceKeyRepository;
+    }
 
     public void save(java.util.UUID uuid, String publicKey, String privateKey) {
         interfaceKeyRepository.save(uuid, publicKey, privateKey);

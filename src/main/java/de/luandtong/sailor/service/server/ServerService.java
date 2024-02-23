@@ -17,18 +17,21 @@ import java.util.UUID;
 public class ServerService {
 
 
-    private Server server;
-    @Autowired
-    private ServerInterfaceService serverInterfaceService;
-    @Autowired
-    private ClientInterfaceService clientInterfaceService;
-    @Autowired
-    private InterfaceKeyService interfaceKeyService;
+    private final Server server;
+    private final ServerInterfaceService serverInterfaceService;
+    private final ClientInterfaceService clientInterfaceService;
+    private final InterfaceKeyService interfaceKeyService;
 
-    public ServerService() {
+    @Autowired
+    public ServerService(ServerInterfaceService serverInterfaceService, ClientInterfaceService clientInterfaceService, InterfaceKeyService interfaceKeyService) {
         this.server = new Server();
+        this.serverInterfaceService = serverInterfaceService;
+        this.clientInterfaceService = clientInterfaceService;
+        this.interfaceKeyService = interfaceKeyService;
         server.setServerNeedsInitialization(false);
     }
+
+
 
     public void creativeServerInterface(String serverInterfaceName, String address, String listenPort, String ethPort) throws IOException, InterruptedException {
         List<String> key = generateServerKey(serverInterfaceName);

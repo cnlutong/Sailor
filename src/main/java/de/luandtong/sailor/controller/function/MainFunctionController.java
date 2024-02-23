@@ -18,13 +18,17 @@ import java.util.regex.Pattern;
 @RequestMapping("/")
 public class MainFunctionController {
 
-    @Autowired
-    private ServerService serverService;
+
+    private final ServerService serverService;
 
     @GetMapping("/init")
     public String getInitConfigPage() {
         // 返回初始化配置页面
         return "init";
+    }
+    @Autowired
+    public MainFunctionController(ServerService serverService) {
+        this.serverService = serverService;
     }
 
     @PostMapping("/init")

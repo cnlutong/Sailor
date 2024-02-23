@@ -16,8 +16,11 @@ import java.util.regex.Pattern;
 @RequestMapping("/")
 public class AuthenticationController {
 
+    private final UserService userService;
     @Autowired
-    private UserService userService;
+    public AuthenticationController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("")
     public String getIndex() {
