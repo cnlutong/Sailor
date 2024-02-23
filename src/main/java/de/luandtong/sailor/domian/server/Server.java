@@ -16,7 +16,8 @@ public class Server {
     boolean serverNeedsInitialization;
 
 
-    //    初始化
+    // 初始化服务器，包括配置文件和软件安装
+    // Initialize the server, including configuration files and software installation
     public void initializeServer() throws IOException, InterruptedException {
         this.serverNeedsInitialization = !this.testClients();
 
@@ -35,52 +36,63 @@ public class Server {
         this.serverNeedsInitialization = false;
     }
 
+    // 测试是否已存在客户端配置目录
+    // Test for the existence of the client configuration directory
     private boolean testClients() throws IOException, InterruptedException {
         String cmd = "test -d /etc/wireguard/clients/ && echo \"true\" || echo \"false\"";
         return Boolean.parseBoolean(run(cmd));
     }
 
-
-    //    启用服务
+    // 启用WireGuard服务
+    // Enable the WireGuard service
     public void enableServer(String name) throws IOException, InterruptedException {
         // 启用 WireGuard 服务
         run("sudo systemctl enable wg-quick@" + name);
         System.out.println("sudo systemctl enable wg-quick@" + name);
     }
 
-    //    启动服务
+    // 启动WireGuard服务
+    // Start the WireGuard service
     public void startServer(String name) throws IOException, InterruptedException {
         // 启动 WireGuard 服务
         run("sudo systemctl start wg-quick@" + name);
         System.out.println("sudo systemctl start wg-quick@" + name);
     }
 
+    // 停用WireGuard服务
+    // Disable the WireGuard service
     public void disableServer(String name) throws IOException, InterruptedException {
         // 关闭 WireGuard 服务
         run("sudo systemctl disable wg-quick@" + name);
         System.out.println("sudo systemctl disable wg-quick@" + name);
     }
 
+    // 停止WireGuard服务
+    // Stop the WireGuard service
     public void stopServer(String name) throws IOException, InterruptedException {
         // 停止 WireGuard 服务
         run("sudo systemctl stop wg-quick@" + name);
         System.out.println("sudo systemctl stop wg-quick@" + name);
     }
 
-    //    重启服务
+    // 重启WireGuard服务，应用配置更改
+    // Restart the WireGuard service to apply configuration changes
     public void restartServer(String name) throws IOException, InterruptedException {
         // 重启 WireGuard 服务以应用更改
         run("sudo systemctl restart wg-quick@" + name + ".service");
         System.out.println("sudo systemctl restart wg-quick@" + name + ".service");
     }
 
+    // 开放端口
+    // Open a port
     public void openPort(String port) throws IOException, InterruptedException {
         run("sudo ufw allow " + port);
         System.out.println("sudo ufw allow " + port);
     }
 
 
-    //    创建密钥
+    // 生成密钥对，包括服务器和客户端
+    // Generate a key pair, including for both server and client
     public List<String> generateKey(boolean isServer, String name) throws IOException, InterruptedException {
         String privateKey;
         String publicKey;
@@ -111,7 +123,8 @@ public class Server {
         return key;
     }
 
-    //    写入新的接口配置文件
+    // 写入新的接口配置文件
+    // Write a new interface configuration file
     public void writeNewConfigFile(boolean isServer, String name, String conf) throws IOException, InterruptedException {
         if (isServer) {
             String serverName = name;
@@ -132,7 +145,8 @@ public class Server {
         run("sudo chmod -R 600 /etc/wireguard/");
     }
 
-    //    续写配置文件
+    // 向服务器配置文件中追加客户端信息
+    // Append client information to the server configuration file
     public void appendServerConfigFile(String serverName, String clientName, String clientPublicKey, String clientAddress) throws IOException {
 
         String serverCong = serverName + ".conf";
@@ -143,6 +157,8 @@ public class Server {
 
     }
 
+    // 从服务器配置中移除客户端
+    // Remove a client from the server configuration
     public void removeClientFromConfig(String serverName, String clientName) throws IOException, InterruptedException {
         Path configPath = Paths.get("/etc/wireguard", serverName + ".conf");
         if (!Files.exists(configPath)) {
@@ -175,6 +191,8 @@ public class Server {
         run("sudo chmod 600 " + configPath);
     }
 
+    // 移除客户端接口文件
+    // Remove client interface files
     public void removeClientInterfaceFiles(String clientInterfaceName) throws IOException {
         Stream.of(
                 "/etc/wireguard/clients/" + clientInterfaceName + ".conf",
@@ -188,6 +206,8 @@ public class Server {
             }
         });
     }
+    // 移除服务器接口文件
+    // Remove server interface files
 
     public void removeServerInterfaceFiles(String serverInterfaceName) throws IOException {
         // 删除服务器接口的配置文件
@@ -227,6 +247,8 @@ public class Server {
         }
     }
 
+    // 修改系统配置以启用IP转发
+    // Modify system configuration to enable IP forwarding
     private void modifySysctlConfFile() throws IOException, InterruptedException {
         // 启用 IP 转发
         // 读取 /etc/sysctl.conf 文件的内容
@@ -247,16 +269,22 @@ public class Server {
         run("sudo sysctl -p");
     }
 
+    // 获取默认网卡接口名称
+    // Get the default network interface name
     public String getDefaultEth() throws IOException, InterruptedException {
         // 获取默认网卡接口
         return run("ip -o -4 route show to default | awk '{print $5}'");
     }
 
+    // 创建配置文件存储路径
+    // Create configuration file storage path
     private void createConfigFileStoragePath() throws IOException, InterruptedException {
         run("sudo mkdir /etc/wireguard/clients/");
         run("sudo mkdir /etc/wireguard/clients/qr");
     }
 
+    // 安装软件
+    // Install software
     private void installSoftware() throws IOException, InterruptedException {
         String packageManager = getPackageManager();
 
@@ -273,6 +301,9 @@ public class Server {
         run("sudo " + packageManager + " install -y ufw");
     }
 
+
+    // 获取包管理器，根据操作系统不同而不同
+    // Get the package manager, which varies by operating system
     private String getPackageManager() throws IOException, InterruptedException {
         String osInfo = run("cat /etc/os-release");
         return switch (osInfo) {
@@ -281,15 +312,19 @@ public class Server {
             case String info when info.contains("Fedora") -> "dnf";
             case String info when info.contains("openSUSE") -> "zypper";
             default -> "apt";
-//                 抛出异常或记录错误
-//                throw new IllegalStateException("Unsupported Linux distribution");
+
         };
     }
+
+    // 设置服务器是否需要初始化
+    // Set whether the server needs initialization
 
     public void setServerNeedsInitialization(boolean serverNeedsInitialization) {
         this.serverNeedsInitialization = serverNeedsInitialization;
     }
 
+    // 获取服务器公共IP地址
+    // Get the server's public IP address
     public String getServerPublicIP() throws IOException, InterruptedException {
         return run("curl -s ifconfig.me");
     }

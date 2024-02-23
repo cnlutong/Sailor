@@ -31,8 +31,8 @@ public class ServerService {
         server.setServerNeedsInitialization(false);
     }
 
-
-
+//  创建服务器接口，并生成配置文件。
+//  Creates a server interface and generates its configuration file.
     public void creativeServerInterface(String serverInterfaceName, String address, String listenPort, String ethPort) throws IOException, InterruptedException {
         List<String> key = generateServerKey(serverInterfaceName);
         UUID keyUUID = UUID.randomUUID();
@@ -58,7 +58,8 @@ public class ServerService {
         server.writeNewConfigFile(true, name, conf);
     }
 
-
+//    创建客户端接口，返回创建状态
+//    Creates a client interface and returns the creation status.
     public int creativeClientInterface(String selectedInterfaceName, String clientName) throws Exception {
 
         if (clientInterfaceService.existsByClientName(clientName)) {
@@ -118,6 +119,8 @@ public class ServerService {
         server.writeNewConfigFile(false, interfaceName, conf);
     }
 
+//    删除客户端接口。
+//    Deletes a client interface.
     public void deleteClientInterface(String clientName, String selectedInterfaceName) throws IOException, InterruptedException {
 
         interfaceKeyService.deleteByUuid(clientInterfaceService.findClientInterfaceByClientName(clientName).getInterfaceKeyUUID());
@@ -130,6 +133,8 @@ public class ServerService {
         restartServer(selectedInterfaceName);
     }
 
+//    删除服务器接口。
+//    Deletes a server interface.
     public void deleteServerInterface(String selectedInterfaceName) throws IOException, InterruptedException {
         interfaceKeyService.deleteByUuid(serverInterfaceService.findServerInterfaceKeyUUIDByInterfaceName(selectedInterfaceName));
         deleteClientInterfaceFromServerInterface(selectedInterfaceName);
@@ -282,6 +287,8 @@ public class ServerService {
         }
     }
 
+//    验证IP地址是否为私有地址。
+//    Validates if an IP address is a private address.
     public boolean isPrivateIPAddress(String address) {
         try {
             InetAddress inetAddress = InetAddress.getByName(address);
@@ -290,7 +297,9 @@ public class ServerService {
             return false; // 地址无效或检查失败
         }
     }
-
+//
+//    判断端口号是否为常用端口且可能不适宜使用。
+//    Determines if a port number is commonly used and may not be suitable for use.
     public boolean isCommonlyUsedPort(String listenPort) {
         int[] commonPorts = {21, 22, 23, 25, 53, 80, 110, 443, 3306, 6379, 5432, 27017, 8080, 8443};
         try {
