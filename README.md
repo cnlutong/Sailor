@@ -22,6 +22,9 @@ curl -sSL -o deploy.sh https://raw.githubusercontent.com/cnlutong/Sailor/master/
 
 After completion, please visit http://server_address:8080 to start using Sailor.
 
+### **Demo video**
+https://youtu.be/vJlzLAs8hGM?si=iEEaMA1Kzi9ZfmaV
+
 ## **Architecture**
 ### **Topology**
 ![sailor](/sailor.draw.png)
