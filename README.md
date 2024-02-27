@@ -4,6 +4,10 @@ For the Chinese version, click here: [简体中文](https://github.com/cnlutong/
 
 Sailor is a WireGuard VPN management tool built on SpringBoot, supporting rapid deployment on Ubuntu servers. It offers a web interface, through which users can easily create and manage VPN services and their clients.
 
+
+## **Contact Information**
+cnlutong@gmail.com / tong.lu@hhu.de
+
 ## **Quick Start**
 
 Please ensure your server meets the following requirements:
@@ -80,6 +84,3 @@ As you can see, you can create multiple VPN services.
 
 The software is currently in the development and testing stage, please use it with caution and not for production environments.
 
-
-## **Contact Information**
-cnlutong@gmail.com / tong.lu@hhu.de
