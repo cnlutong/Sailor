@@ -103,10 +103,16 @@ WireGuard is a modern VPN protocol known for its lean codebase, efficient perfor
 ![sailor](/sailor.draw.png)
 
 ### **Technology Stack**
-- **Backend**: Utilizes the SpringBoot framework, adopts an onion architecture design, making the code clear and maintainable.
-- **Data Persistence**: Employs MariaDB as the database system.
-- **Frontend**: The interface is constructed with HTML and CSS, providing an intuitive and friendly user operation interface.
-
+- WireGuard
+- Java 21 LTS
+- Springboot 3.2
+- Gradle
+- Spring Security
+- HTML, CSS, Thymeleaf
+- Spring Data JDBC
+- MariaDB
+- Docker
+- Google ZXing
 ### **Core Features**
 
 - **User Management**: Supports user registration and login features, ensuring the security of the service.
@@ -115,5 +121,9 @@ WireGuard is a modern VPN protocol known for its lean codebase, efficient perfor
 
 ## **Notice**
 
-The software is currently in the development and testing stage, please use it with caution and not for production environments.
+Please use with caution in a production environment.
+
+
+
+
 
