@@ -55,7 +55,10 @@ initialize() {
     echo "**** Opening the Firewall."
     sudo ufw allow 8080
 
-    echo "Initialization complete."
+    echo "
+    
+    Initialization complete.
+    "
 
 }
 
@@ -71,10 +74,16 @@ stop_app() {
     echo "**** Stopping Sailor app..."
     PID=$(ps aux | grep 'sailor_app.jar' | grep -v grep | awk '{print $2}')
     if [ -z "$PID" ]; then
-        echo "Sailor app is not running."
+        echo "
+        
+        Sailor app is not running.
+        "
     else
         sudo kill "$PID"
-        echo "Sailor app has been stopped."
+        echo "
+        
+        Sailor app has been stopped。
+        "
     fi
 }
 
