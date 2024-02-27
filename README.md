@@ -31,9 +31,27 @@ Mandarin/English subtitles
 
 https://youtu.be/vJlzLAs8hGM?si=iEEaMA1Kzi9ZfmaV
 
+### **Client Software Download**
+[Windows](https://download.wireguard.com/windows-client/wireguard-installer.exe)
 
+[macOS](https://itunes.apple.com/us/app/wireguard/id1451685025?ls=1&mt=12)
 
+[Android](https://play.google.com/store/apps/details?id=com.wireguard.android)
+
+[IOS](https://itunes.apple.com/us/app/wireguard/id1441195209?ls=1&mt=8)
+
+[Linux?]() using Linux already, can't you handle it yourself?
 ## **Tutorial**
+
+
+### Preparations before use
+
+
+You need to have a server, which can be a VPS in the cloud or a server within a private network (requiring you to configure port forwarding).
+
+For purchasing VPS in the cloud, you can use [Hetzner](https://www.hetzner.com/) and [Vultr](https://www.vultr.com/). (This is not an advertisement, but merely my personal experience from testing their VPS, which was 100% functional.)
+
+
 ### Sigin and Login
 Upon first use, you need to set up an administrator account.
 
@@ -66,6 +84,21 @@ As you can see, you can create multiple VPN services.
 ![server](/tutorial/server.png)
 
 ## **Architecture**
+
+### About
+Here, I want to explain the original intention behind developing Sailor. WireGuard is currently the best VPN protocol available, but it's not particularly user-friendly for the average user because the official WireGuard only offers a command-line based deployment method. Other tools are either purely command-line based or lack customization options. Therefore, I hope Sailor can not only achieve rapid deployment but also offer more customizable features.
+
+**Why [WireGuard](https://www.wireguard.com/)?**
+
+WireGuard is a modern VPN protocol known for its lean codebase, efficient performance, and advanced encryption technologies. It's designed to be faster, simpler, and more lightweight than existing VPN solutions while offering high levels of security and privacy protection.
+
+1. **Encryption Technology**: WireGuard utilizes a combination of state-of-the-art encryption technologies, including Curve25519 for key exchange, ChaCha20 for encryption, Poly1305 for authentication, and BLAKE2s as the hash function. These algorithms are considered among the safest options available, providing strong security guarantees.
+2. **Performance Optimization**: Thanks to highly optimized and concise code, WireGuard significantly outperforms traditional VPN protocols like OpenVPN and IPSec in terms of performance. It offers lower latency and higher throughput without sacrificing security, which is especially important for real-time communication and large data transfers.
+3. **Kernel-Level Integration**: Starting from Linux version 5.6, WireGuard has been directly integrated into the Linux kernel, meaning it can directly benefit from the networking capabilities and optimizations provided by the kernel, further enhancing performance and efficiency. This kernel-level support makes WireGuard run more efficiently on Linux systems, particularly suited for environments requiring long run times and high stability.
+4. **Ease of Deployment and Maintenance**: The configuration process for WireGuard is simple and quick. Its stateless design also means it's more stable in dynamic IP environments and more suitable for complex network settings.
+5. **Cross-Platform Compatibility**: In addition to Linux, WireGuard supports other operating systems like Windows, macOS, BSD, iOS, and Android, ensuring good performance across different platforms.
+6. **Privacy Protection**: WireGuard was designed with privacy in mind. It not only uses secure encryption technologies but also employs a minimal logging strategy to avoid storing sensitive information, enhancing user privacy protection.
+
 ### **Topology**
 ![sailor](/sailor.draw.png)
 
