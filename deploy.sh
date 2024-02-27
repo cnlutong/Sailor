@@ -108,7 +108,7 @@ Please choose an option:
 EOF
 
     # 使用 read 命令接受用户输入
-read -p "Enter your choice [1-2]: " choice
+read -p "Enter your choice [1-4]: " choice
 
 case $choice in
     1)
