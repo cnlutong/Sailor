@@ -57,7 +57,8 @@ initialize() {
 
     echo "
     
-    Initialization complete.
+    **** Initialization complete.
+
     "
 
 }
@@ -67,7 +68,11 @@ run_app() {
     echo "**** Running downloaded JAR file in the background..."
     nohup sudo java -jar sailor_app.jar > sailor_app.log 2>&1 &
 
-    echo "Sailor app is now running in the background."
+    echo "
+
+    **** Sailor app is now running in the background.
+
+    "
 }
 
 stop_app() {
@@ -77,12 +82,14 @@ stop_app() {
         echo "
         
         Sailor app is not running.
+
         "
     else
         sudo kill "$PID"
         echo "
         
-        Sailor app has been stopped。
+        Sailor app has been stopped.
+
         "
     fi
 }
