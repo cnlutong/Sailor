@@ -81,14 +81,14 @@ stop_app() {
     if [ -z "$PID" ]; then
         echo "
         
-        Sailor app is not running.
+        **** Sailor app is not running.
 
         "
     else
         sudo kill "$PID"
         echo "
-        
-        Sailor app has been stopped.
+
+        **** Sailor app has been stopped.
 
         "
     fi
