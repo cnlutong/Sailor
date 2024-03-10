@@ -105,15 +105,14 @@ run_app() {
 
 stop_app() {
     echo "**** Stopping Sailor app..."
-    PID=$(ps aux | grep 'sailor_app.jar' | grep -v grep | awk '{print $2}')
-    if [ -z "$PID" ]; then
-        echo "
-        
-        **** Sailor app is not running.
-
-        "
+    PIDS=$(ps aux | grep 'sailor_app.jar' | grep -v grep | awk '{print $2}')
+    if [ -z "$PIDS" ]; then
+        echo "**** Sailor app is not running."
     else
-        sudo kill "$PID"
+        for PID in $PIDS; do
+            sudo kill "$PID"
+            echo "**** Stopped process $PID."
+        done
         echo "
 
         **** Sailor app has been stopped.
@@ -121,6 +120,7 @@ stop_app() {
         "
     fi
 }
+
 
 
 while true; do
