@@ -62,10 +62,10 @@ The minimum length for the username and password is 5 characters, and the maximu
 
 To generate a complex password, you can use the following website: https://1password.com/password-generator/
 
-![login page](/tutorial/login.png)
+![login page](/tutorial/1.png)
 
 ### create a new service
-![init](/tutorial/init.png)
+![init](/tutorial/2.png)
 
 To create a new VPN service, you need to provide the following information:
 
@@ -77,11 +77,11 @@ To create a new VPN service, you need to provide the following information:
 **If you do not understand what I am saying, then all you need to do is enter a name you like for the Service Name to proceed to the next step.**
 
 ### Select your VPN service
-![home](/tutorial/home.png)
+![home](/tutorial/3.png)
 As you can see, you can create multiple VPN services.
 
 ### Service Homepage
-![server](/tutorial/server.png)
+![server](/tutorial/4.png)
 
 ## **Architecture**
 
