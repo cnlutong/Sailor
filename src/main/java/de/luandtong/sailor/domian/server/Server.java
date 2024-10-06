@@ -86,6 +86,7 @@ public class Server {
     // 开放端口
     // Open a port
     public void openPort(String port) throws IOException, InterruptedException {
+        run("sudo ufw enable");
         run("sudo ufw allow " + port);
         System.out.println("sudo ufw allow " + port);
     }
